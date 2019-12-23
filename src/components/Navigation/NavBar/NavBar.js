@@ -4,7 +4,7 @@ import NavigationItems from '../NavigationItems/NavigationItems'
 
 const NavBar = props => (
   <header>
-    <nav className="d-flex pr-auto navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav className="d-flex pr-auto fixed-top navbar navbar-expand-sm bg-dark navbar-dark">
       <Logo />
 
       {/* Toggler/collapsibe Button */}
@@ -17,7 +17,6 @@ const NavBar = props => (
         <NavigationItems />
       </div>
     </nav>
-    <br />
   </header>
 )
 
