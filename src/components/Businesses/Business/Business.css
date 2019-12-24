@@ -1,0 +1,29 @@
+h3 {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: 300;
+  max-width: 65%;
+  margin: auto;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddcece;
+}
+
+.col-sm-5 {
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  box-shadow: 2px 2px 2px #efefef;
+}
+
+.col-sm-5 ion-icon {
+  font-size: 350%;
+  color: #8f0505;
+  margin: 25px auto -10px;
+}
+
+.col-sm-5 p {
+  margin-top: 20px;
+}

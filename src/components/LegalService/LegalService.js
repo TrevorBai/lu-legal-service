@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Banner from '../Banner/Banner'
+import Businesses from '../Businesses/Businesses'
 
 const LegalService = props => {
   return (
-    <Banner />
+    <Fragment>
+      <Banner />
+      <Businesses />
+    </Fragment>
   )
 }
 
