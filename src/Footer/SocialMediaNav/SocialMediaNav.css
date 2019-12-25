@@ -1,0 +1,34 @@
+.social-links li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.social-links li a:link,
+.social-links li a:visited {
+  color: #888888;
+  text-decoration: none;
+  transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -ms-transition: color 0.2s;
+  -o-transition: color 0.2s;
+}
+
+.social-links li a:link,
+.social-links li a:visited { font-size: 160%; }
+
+.social-links li ion-icon {
+  transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -ms-transition: color 0.2s;
+  -o-transition: color 0.2s;
+}
+
+.social-links li:first-child ion-icon:hover { color: #3b5998; }
+
+.social-links li:nth-last-child(3) ion-icon:hover { color: #55acee; }
+
+.social-links li:nth-last-child(2) ion-icon:hover { color: #dc4e41; }
+
+.social-links li:last-child ion-icon:hover { color: #517fa4; }

@@ -1,0 +1,20 @@
+footer {
+  background-color: #333;
+  padding: 50px;
+  font-size: 80%;
+}
+
+.footer-nav {
+  list-style: none;
+  padding: 2px 0 0;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+}
+
+footer p {
+  color: #888888;
+  margin: 20px auto 0;
+}

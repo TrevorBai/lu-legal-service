@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import NavBar from '../../components/Navigation/NavBar/NavBar'
+import Footer from '../../Footer/Footer'
 
 const Layout = props => {
   return (
@@ -8,6 +9,7 @@ const Layout = props => {
       <main>
         {props.children}
       </main>
+      <Footer />
     </Fragment>
   )
 }
