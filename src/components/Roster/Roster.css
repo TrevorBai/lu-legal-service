@@ -1,0 +1,9 @@
+.Roster {
+  padding: 4rem 0 4rem;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.Roster .row {
+  margin: -4% 5%;
+}

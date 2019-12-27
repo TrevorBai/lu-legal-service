@@ -1,0 +1,22 @@
+.SubBanner {
+  background-image: linear-gradient(-45deg, rgba(238, 84, 84, 0.8), rgb(0, 0, 0, .6)), url('../../../assets/images/business.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  height: 70vh;
+}
+
+.SubBanner h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 300;
+  word-spacing: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 2.5rem 1.5rem;
+  transform: translateY(35vh);
+  -webkit-transform: translateY(35vh);
+  -moz-transform: translateY(35vh);
+  -ms-transform: translateY(35vh);
+  -o-transform: translateY(35vh);
+}

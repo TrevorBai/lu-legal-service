@@ -16,6 +16,9 @@ h3 {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   box-shadow: 2px 2px 2px #efefef;
+  animation: mymove 5s ease-out 1s forwards;
+  -webkit-animation: mymove 5s ease-out 1s forwards;
+  animation-fill-mode: backwards;
 }
 
 .col-sm-5 ion-icon {
@@ -26,4 +29,58 @@ h3 {
 
 .col-sm-5 p {
   margin-top: 20px;
+}
+
+@keyframes mymove {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -o-transform: translateY(50%);
+}
+  50% {
+    opacity: 1;
+    transform: translateY(-5%);
+    -webkit-transform: translateY(-5%);
+    -moz-transform: translateY(-5%);
+    -ms-transform: translateY(-5%);
+    -o-transform: translateY(-5%);
+}
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes mymove {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -o-transform: translateY(50%);
+}
+  50% {
+    opacity: 1;
+    transform: translateY(-5%);
+    -webkit-transform: translateY(-5%);
+    -moz-transform: translateY(-5%);
+    -ms-transform: translateY(-5%);
+    -o-transform: translateY(-5%);
+}
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
 }

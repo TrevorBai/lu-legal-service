@@ -1,0 +1,9 @@
+.btn {
+  margin: 0 10px;
+  font-weight: 300;
+  border-radius: 200px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  -ms-border-radius: 200px;
+  -o-border-radius: 200px;
+}
