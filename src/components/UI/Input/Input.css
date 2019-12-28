@@ -1,0 +1,28 @@
+.ContactDataForm .row {
+  padding: 1% 10%;
+}
+
+.ContactDataForm input,
+.ContactDataForm select,
+.ContactDataForm textarea {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ContactDataForm .col-sm-4 {
+  display: flex;
+  align-items : center;
+  margin: 1% auto;
+}
+
+.ContactDataForm .col-sm-8 {
+  margin: 1% auto;
+}
+
+.ContactDataForm label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+textarea { height: 100px; }

@@ -28,7 +28,7 @@ h2::after {
   margin: 30px auto;
 }
 
-p {
+.Businesses p {
   max-width: 75%;
   margin: auto;
   margin-bottom: 3rem;

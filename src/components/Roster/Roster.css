@@ -7,3 +7,9 @@
 .Roster .row {
   margin: -4% 5%;
 }
+
+.Roster p {
+  max-width: 75%;
+  margin: auto;
+  margin-bottom: 3rem;
+}

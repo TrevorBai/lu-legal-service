@@ -1,0 +1,20 @@
+.ContactData {
+  margin: 5% 10%;
+}
+
+.ContactData h2 {
+  text-align: center;
+}
+
+.ContactData p {
+  margin: 0 5% 10%;
+  text-align: center;
+}
+
+.ContactDataForm .col-sm-8 .react-datepicker-wrapper {
+  width: 100%;
+}
+
+.ContactDataForm .btn {
+  margin: 5% auto;
+}
