@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import './ContactData.css'
 import Input from '../UI/Input/Input'
 import DatePicker from 'react-datepicker'
@@ -30,6 +31,10 @@ const ContactData = props => {
     elementConfig: {
       options: [
         {
+          value: '',
+          displayValue: 'Please select one category'
+        },
+        {
           value: 'traffic tickets',
           displayValue: 'Traffic tickets'
         },
@@ -47,13 +52,17 @@ const ContactData = props => {
         }
       ]
     },
-    value: 'traffic tickets'
+    value: ''
   })
 
   const [appointmentTime, setAppointmentTime] = useState({
     elementType: 'select',
     elementConfig: {
       options: [
+        {
+          value: '',
+          displayValue: 'Please select a specific time'
+        },
         {
           value: '9:00 AM',
           displayValue: '9:00 AM'
@@ -116,7 +125,7 @@ const ContactData = props => {
         }
       ]
     },
-    value: '9:00AM'
+    value: ''
   })
 
   const [date, setDate] = useState(new Date())
@@ -130,7 +139,7 @@ const ContactData = props => {
     value: ''
   })
 
-  const appointmentHandler = event => {
+  const appointmentHandler = async event => {
     event.preventDefault()
 
     const compoundDateFormat = date.toString().slice(4, 15) + ' ' + date.toString().slice(-23)
@@ -146,7 +155,13 @@ const ContactData = props => {
     console.log(formData)
 
     // send data to backend
-    // ...
+    try {
+      const res = await axios.post(`http://localhost:5000/appointments`, formData)
+      console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
+       
   }
 
   const onChangeUsernameHandler = (event, input) => {
@@ -206,13 +221,15 @@ const ContactData = props => {
       elementConfig={task.elementConfig}
       value={task.value}
       changed={event => onChangeTaskHandler(event, task)}
+      required
     />
     <Input 
       elementType={appointmentTime.elementType} 
       label="Meeting time"
       elementConfig={appointmentTime.elementConfig}
       value={appointmentTime.value}
-      changed={event => onChangeAppointmentTimeHandler(event, appointmentTime)} 
+      changed={event => onChangeAppointmentTimeHandler(event, appointmentTime)}
+      required
     />
     <div className="row">
       <div className="col-sm-4">

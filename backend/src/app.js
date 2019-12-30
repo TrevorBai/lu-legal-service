@@ -1,14 +1,14 @@
 const express = require('express')
 require('./db/mongoose')
-// const cors = require('cors')
+const cors = require('cors')
 const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
+const appointmentRouter = require('./routers/appointment')
 
 const app = express()
 
-// app.use(cors())
+app.use(cors())
 app.use(express.json())
 app.use(userRouter)
-app.use(taskRouter)
+app.use(appointmentRouter)
 
 module.exports = app
