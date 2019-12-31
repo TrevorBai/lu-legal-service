@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import './ContactData.css'
 import Input from '../UI/Input/Input'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Button from '../UI/Button/Button'
+import Modal from '../UI/Modal/Modal'
+import AppointmentSummary from '../Appointments/AppointmentSummary/AppointmentSummary'
+
 
 const ContactData = props => {
 
@@ -139,11 +142,28 @@ const ContactData = props => {
     value: ''
   })
 
+  const [bookable, setBookable] = useState(false)
+  const [booking, setBooking] = useState(false)
+
+  const updateBookableHandler = useCallback(() => {
+    if (username.value 
+      && email.value
+      && task.value
+      && appointmentTime.value
+      ) {
+      setBookable(true)
+    }
+  }, [username.value,
+    email.value,
+    task.value,
+    appointmentTime.value
+  ])
+
+  const compoundDateFormat = date.toString().slice(4, 15) + ' ' + date.toString().slice(-23)
+
   const appointmentHandler = async event => {
     event.preventDefault()
 
-    const compoundDateFormat = date.toString().slice(4, 15) + ' ' + date.toString().slice(-23)
-    
     const formData = {
       username: username.value,
       email: email.value,
@@ -155,37 +175,45 @@ const ContactData = props => {
     console.log(formData)
 
     // send data to backend
-    try {
-      const res = await axios.post(`http://localhost:5000/appointments`, formData)
-      console.log(res.data)
-    } catch (e) {
-      console.log(e)
-    }
-       
+    // try {
+    //   const res = await axios.post(`http://localhost:5000/appointments`, formData)
+    //   console.log(res.data)
+    // } catch (e) {
+    //   console.log(e)
+    // }
   }
+  
+
+  useEffect(() => {
+    updateBookableHandler()
+  }, [updateBookableHandler])
 
   const onChangeUsernameHandler = (event, input) => {
     const updatedFormElement = {...input}
     updatedFormElement.value = event.target.value
     setUsername(updatedFormElement)
+    updateBookableHandler()
   }
 
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = {...input}
     updatedFormElement.value = event.target.value
     setEmail(updatedFormElement)
+    updateBookableHandler()
   }
 
   const onChangeTaskHandler = (event, input) => {
     const updatedFormElement = {...input}
     updatedFormElement.value = event.target.value
     setTask(updatedFormElement)
+    updateBookableHandler()
   }
 
   const onChangeAppointmentTimeHandler = (event, input) => {
     const updatedFormElement = {...input}
     updatedFormElement.value = event.target.value
     setAppointmentTime(updatedFormElement)
+    updateBookableHandler()
   }
 
   const onChangeDateHandler = date => {
@@ -198,7 +226,18 @@ const ContactData = props => {
     setMessage(updatedFormElement)
   }
 
-  const form = <form onSubmit={appointmentHandler} className="ContactDataForm">
+  const bookAnAppointmentHandler = (event) => {
+    event.preventDefault()
+    setBooking(true)
+  }
+
+  const cancelAnAppointmentHandler = () => {
+    setBooking(false)
+  }
+  
+  // onSubmit = { appointmentHandler }
+
+  const form = <form className="ContactDataForm">
     <Input 
       elementType={username.elementType} 
       label="Name" 
@@ -250,12 +289,26 @@ const ContactData = props => {
       changed={event => onChangeMessageHandler(event, message)}
     />
     <div className="row">
-      <Button className="btn btn-primary">Book me in</Button>
+      <Button 
+        className="btn btn-primary"
+        clicked={bookAnAppointmentHandler}
+        disabled={!bookable}>Book me in</Button>
     </div>
   </form>
 
   return (
     <section className="ContactData">
+      <Modal 
+        show={booking}
+        modalClosed={cancelAnAppointmentHandler}>
+        <AppointmentSummary 
+          username={username.value}
+          task={task.value}
+          appointmentTime={appointmentTime.value}
+          date={compoundDateFormat}
+          message={message.value}
+        />
+      </Modal>
       <h2>Let's sit and talk</h2>
       <p>At Lu legal services, we offer 30 minutes consultation for free. We open 7 days a week from 9 a.m. to 6 p.m. You are welcome to book an appointment through our online booking system below. Looking forward to talk to you soon. Thanks!</p>
       {form}

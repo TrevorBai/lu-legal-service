@@ -1,0 +1,18 @@
+.AppointmentSummary h3 {
+  text-align: center;
+}
+
+.AppointmentSummary p {
+  text-align: start;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  line-height: 150%;
+}
+
+.AppointmentSummary .sub-p {
+  margin-top: 0;
+}
+
+.AppointmentSummary .last-p {
+  margin: 2rem 5%;
+}
