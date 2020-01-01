@@ -4,8 +4,8 @@
 
 .AppointmentSummary p {
   text-align: start;
-  margin-top: 2rem;
-  margin-bottom: 0;
+  margin: 2rem 3rem 0;
+
   line-height: 150%;
 }
 
@@ -14,5 +14,13 @@
 }
 
 .AppointmentSummary .last-p {
-  margin: 2rem 5%;
+  margin: 2rem 3rem;
+}
+
+.AppointmentSummary .row {
+  padding: 3% 3rem;
+}
+
+.AppointmentSummary Button {
+  margin: 0 auto;
 }

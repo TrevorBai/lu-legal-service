@@ -7,6 +7,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import Button from '../UI/Button/Button'
 import Modal from '../UI/Modal/Modal'
 import AppointmentSummary from '../Appointments/AppointmentSummary/AppointmentSummary'
+import Spinner from '../UI/Spinner/Spinner'
+import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler'
 
 
 const ContactData = props => {
@@ -144,6 +146,7 @@ const ContactData = props => {
 
   const [bookable, setBookable] = useState(false)
   const [booking, setBooking] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const updateBookableHandler = useCallback(() => {
     if (username.value 
@@ -163,7 +166,7 @@ const ContactData = props => {
 
   const appointmentHandler = async event => {
     event.preventDefault()
-
+    setLoading(true)
     const formData = {
       username: username.value,
       email: email.value,
@@ -172,15 +175,16 @@ const ContactData = props => {
       date: compoundDateFormat,
       message: message.value
     }
-    console.log(formData)
 
     // send data to backend
-    // try {
-    //   const res = await axios.post(`http://localhost:5000/appointments`, formData)
-    //   console.log(res.data)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    try {
+      await axios.post(`http://localhost:5000/appointments`, formData)
+      setLoading(false)
+      setBooking(false)
+    } catch (e) {
+      setLoading(false)
+      setBooking(false)
+    }
   }
   
 
@@ -234,8 +238,6 @@ const ContactData = props => {
   const cancelAnAppointmentHandler = () => {
     setBooking(false)
   }
-  
-  // onSubmit = { appointmentHandler }
 
   const form = <form className="ContactDataForm">
     <Input 
@@ -296,18 +298,25 @@ const ContactData = props => {
     </div>
   </form>
 
+  let appointmentSummary = <AppointmentSummary
+    username={username.value}
+    task={task.value}
+    appointmentTime={appointmentTime.value}
+    date={compoundDateFormat}
+    message={message.value}
+    appointmentCancelled={cancelAnAppointmentHandler}
+    appointmentContinued={appointmentHandler}
+  />
+  if (loading) {
+    appointmentSummary = <Spinner />
+  }
+
   return (
     <section className="ContactData">
       <Modal 
         show={booking}
         modalClosed={cancelAnAppointmentHandler}>
-        <AppointmentSummary 
-          username={username.value}
-          task={task.value}
-          appointmentTime={appointmentTime.value}
-          date={compoundDateFormat}
-          message={message.value}
-        />
+        {appointmentSummary}
       </Modal>
       <h2>Let's sit and talk</h2>
       <p>At Lu legal services, we offer 30 minutes consultation for free. We open 7 days a week from 9 a.m. to 6 p.m. You are welcome to book an appointment through our online booking system below. Looking forward to talk to you soon. Thanks!</p>
@@ -316,4 +325,4 @@ const ContactData = props => {
   )
 }
 
-export default ContactData
+export default withErrorHandler(ContactData, axios)
