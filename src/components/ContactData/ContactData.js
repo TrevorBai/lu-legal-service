@@ -178,7 +178,7 @@ const ContactData = props => {
 
     // send data to backend
     try {
-      await axios.post(`http://localhost:5000/appointments`, formData)
+      await axios.post('http://localhost:5000/appointments', formData)
       setLoading(false)
       setBooking(false)
     } catch (e) {

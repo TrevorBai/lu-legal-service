@@ -4,7 +4,7 @@ import './SubBanner.css'
 const SubBanner = props => {
   return (
     <section className="SubBanner">
-      <h1>need advice? let us help you!</h1>
+    <h1>{props.title}</h1>
     </section>
   )
 }

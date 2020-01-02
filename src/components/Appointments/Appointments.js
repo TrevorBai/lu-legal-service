@@ -5,7 +5,7 @@ import ContactData from '../ContactData/ContactData'
 const Appointments = props => {
   return (
     <Fragment>
-      <SubBanner />
+      <SubBanner title={'Need advice? let us help you!'}/>
       <ContactData />
     </Fragment>
   )

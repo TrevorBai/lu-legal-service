@@ -8,7 +8,7 @@ h3 {
   border-bottom: 1px solid #ddcece;
 }
 
-.col-sm-5 {
+.Businesses .col-sm-5 {
   background-color: #fff;
   border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -21,13 +21,13 @@ h3 {
   animation-fill-mode: backwards;
 }
 
-.col-sm-5 ion-icon {
+.Businesses .col-sm-5 ion-icon {
   font-size: 350%;
   color: #8f0505;
   margin: 25px auto -10px;
 }
 
-.col-sm-5 p {
+.Businesses .col-sm-5 p {
   margin-top: 20px;
 }
 
