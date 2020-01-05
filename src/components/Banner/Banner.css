@@ -30,6 +30,6 @@
 
 @media (max-width: 414px) {
   .Banner {
-    background-size: 400;
+    background-size: auto 100%;
   }
 }

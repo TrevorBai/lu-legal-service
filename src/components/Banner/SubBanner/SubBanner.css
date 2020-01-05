@@ -23,6 +23,6 @@
 
 @media (max-width: 414px) {
   .SubBanner {
-    background-size: 400;
+    background-size: auto 100%;
   }
 }
