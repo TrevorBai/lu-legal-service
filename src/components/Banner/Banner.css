@@ -27,3 +27,9 @@
   text-transform: uppercase;
   margin: 0 0 1.5rem 0;
 }
+
+@media (max-width: 414px) {
+  .Banner {
+    background-size: contain;
+  }
+}

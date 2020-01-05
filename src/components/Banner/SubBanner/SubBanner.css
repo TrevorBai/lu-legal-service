@@ -20,3 +20,9 @@
   -ms-transform: translateY(35vh);
   -o-transform: translateY(35vh);
 }
+
+@media (max-width: 414px) {
+  .SubBanner {
+    background-size: contain;
+  }
+}
