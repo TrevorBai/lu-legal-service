@@ -1,6 +1,9 @@
 .SubBanner {
   background-image: linear-gradient(-45deg, rgba(238, 84, 84, 0.8), rgb(0, 0, 0, .6)), url('../../../assets/images/business.jpg');
   background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-attachment: fixed;
   height: 70vh;
 }
@@ -21,8 +24,11 @@
   -o-transform: translateY(35vh);
 }
 
-@media (max-width: 414px) {
+@media only screen and (max-width: 480px) {
   .SubBanner {
     background-size: auto 100%;
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
   }
 }
