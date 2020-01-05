@@ -7,7 +7,7 @@ const Banner = props => {
 
   const scrollToSectionHandler = () => {
     window.scrollTo({
-      top: .62 * window.innerHeight,
+      top: .64 * window.innerHeight,
       left: 0, 
       behavior: 'smooth'
     })

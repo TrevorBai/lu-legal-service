@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import './ContactData.css'
 import Input from '../UI/Input/Input'
@@ -9,7 +11,8 @@ import Modal from '../UI/Modal/Modal'
 import AppointmentSummary from '../Appointments/AppointmentSummary/AppointmentSummary'
 import Spinner from '../UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler'
-
+import * as appointmentActions from '../../store/actions/index'
+import { updateObject } from '../../shared/utility'
 
 const ContactData = props => {
 
@@ -144,9 +147,16 @@ const ContactData = props => {
     value: ''
   })
 
-  const [bookable, setBookable] = useState(false)
-  const [booking, setBooking] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [bookable, setBookable] = useState(false)  // local UI state
+
+  const loading = useSelector(state => state.loading)
+  const booking = useSelector(state => state.booking)
+  const booked = useSelector(state => state.booked)
+
+  const dispatch = useDispatch()
+  const onBookAppointment = (formData) => dispatch(appointmentActions.bookAppointment(formData))
+  const onOpenModal = () => dispatch(appointmentActions.openModal())
+  const onCloseModal = () => dispatch(appointmentActions.closeModal())
 
   const updateBookableHandler = useCallback(() => {
     if (username.value 
@@ -162,11 +172,14 @@ const ContactData = props => {
     appointmentTime.value
   ])
 
+  useEffect(() => {
+    updateBookableHandler()
+  }, [updateBookableHandler])
+
   const compoundDateFormat = date.toString().slice(4, 15) + ' ' + date.toString().slice(-23)
 
   const appointmentHandler = async event => {
     event.preventDefault()
-    setLoading(true)
     const formData = {
       username: username.value,
       email: email.value,
@@ -176,46 +189,37 @@ const ContactData = props => {
       message: message.value
     }
 
-    // send data to backend
-    try {
-      await axios.post('http://localhost:5000/appointments', formData)
-      setLoading(false)
-      setBooking(false)
-    } catch (e) {
-      setLoading(false)
-      setBooking(false)
-    }
+    onBookAppointment(formData)
   }
-  
-
-  useEffect(() => {
-    updateBookableHandler()
-  }, [updateBookableHandler])
 
   const onChangeUsernameHandler = (event, input) => {
-    const updatedFormElement = {...input}
-    updatedFormElement.value = event.target.value
+    const updatedFormElement = updateObject(input, {
+      value: event.target.value
+    })
     setUsername(updatedFormElement)
     updateBookableHandler()
   }
 
   const onChangeEmailHandler = (event, input) => {
-    const updatedFormElement = {...input}
-    updatedFormElement.value = event.target.value
+    const updatedFormElement = updateObject(input, {
+      value: event.target.value
+    })
     setEmail(updatedFormElement)
     updateBookableHandler()
   }
 
   const onChangeTaskHandler = (event, input) => {
-    const updatedFormElement = {...input}
-    updatedFormElement.value = event.target.value
+    const updatedFormElement = updateObject(input, {
+      value: event.target.value
+    })
     setTask(updatedFormElement)
     updateBookableHandler()
   }
 
   const onChangeAppointmentTimeHandler = (event, input) => {
-    const updatedFormElement = {...input}
-    updatedFormElement.value = event.target.value
+    const updatedFormElement = updateObject(input, {
+      value: event.target.value
+    })
     setAppointmentTime(updatedFormElement)
     updateBookableHandler()
   }
@@ -225,18 +229,19 @@ const ContactData = props => {
   }
 
   const onChangeMessageHandler = (event, input) => {
-    const updatedFormElement = {...input}
-    updatedFormElement.value = event.target.value
+    const updatedFormElement = updateObject(input, {
+      value: event.target.value
+    })
     setMessage(updatedFormElement)
   }
 
   const bookAnAppointmentHandler = (event) => {
     event.preventDefault()
-    setBooking(true)
+    onOpenModal()
   }
 
   const cancelAnAppointmentHandler = () => {
-    setBooking(false)
+    onCloseModal()
   }
 
   const form = <form className="ContactDataForm">
@@ -311,8 +316,11 @@ const ContactData = props => {
     appointmentSummary = <Spinner />
   }
 
+  const bookedRedirect = booked && <Redirect to="/" />
+
   return (
     <section className="ContactData">
+      {bookedRedirect}
       <Modal 
         show={booking}
         modalClosed={cancelAnAppointmentHandler}>

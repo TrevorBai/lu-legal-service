@@ -1,28 +1,35 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, { Suspense } from 'react'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import LegalService from './components/LegalService/LegalService'
 import Layout from './hoc/Layout/Layout'
-import Appointments from './components/Appointments/Appointments'
-import ContactUs from './components/ContactUs/ContactUs'
+
+const Appointments = React.lazy(() => {
+  return import('./components/Appointments/Appointments')
+})
+
+const ContactUs = React.lazy(() => {
+  return import('./components/ContactUs/ContactUs')
+})
+
 
 const App = () => {
   let routes = (
     <Switch>
       <Route path="/" exact component={LegalService} />
-      <Route path="/appointments" component={Appointments} />
-      <Route path="/contact" component={ContactUs} />
+      <Route path="/appointments" render={props => <Appointments {...props} />} />
+      <Route path="/contact" render={props => <ContactUs {...props} />} />
     </Switch>
   )
   
   return (
     <div>
       <Layout>
-        <div>
+        <Suspense fallback={<p>Loading...</p>}>
           {routes}
-        </div>
+        </Suspense>
       </Layout>
     </div>
   )
 }
 
-export default App;
+export default withRouter(App)

@@ -3,7 +3,6 @@ import './Businesses.css'
 import Business from './Business/Business'
 
 const Businesses = props => {
-
   return (
     <section className="Businesses">
       <h2>Here is what we can help you</h2>

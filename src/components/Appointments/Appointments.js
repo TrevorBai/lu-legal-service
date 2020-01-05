@@ -6,7 +6,7 @@ const Appointments = props => {
   return (
     <Fragment>
       <SubBanner title={'Need advice? let us help you!'}/>
-      <ContactData />
+      <ContactData {...props} />
     </Fragment>
   )
 }
