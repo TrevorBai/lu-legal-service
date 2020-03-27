@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
@@ -158,15 +158,16 @@ const ContactData = props => {
   const onOpenModal = () => dispatch(appointmentActions.openModal());
   const onCloseModal = () => dispatch(appointmentActions.closeModal());
 
-  const updateBookableHandler = useCallback(() => {
-    if (username.value && email.value && task.value && appointmentTime.value) {
-      setBookable(true);
-    }
-  }, [username.value, email.value, task.value, appointmentTime.value]);
-
   useEffect(() => {
+    const updateBookableHandler = () => {
+      if (username.value && email.value && task.value && appointmentTime.value) {
+        setBookable(true);
+      } else {
+        setBookable(false);
+      }
+    };
     updateBookableHandler();
-  }, [updateBookableHandler]);
+  }, [username.value, email.value, task.value, appointmentTime.value]);
 
   const compoundDateFormat =
     date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
@@ -190,7 +191,6 @@ const ContactData = props => {
       value: event.target.value
     });
     setUsername(updatedFormElement);
-    updateBookableHandler();
   };
 
   const onChangeEmailHandler = (event, input) => {
@@ -198,7 +198,6 @@ const ContactData = props => {
       value: event.target.value
     });
     setEmail(updatedFormElement);
-    updateBookableHandler();
   };
 
   const onChangeTaskHandler = (event, input) => {
@@ -206,7 +205,6 @@ const ContactData = props => {
       value: event.target.value
     });
     setTask(updatedFormElement);
-    updateBookableHandler();
   };
 
   const onChangeAppointmentTimeHandler = (event, input) => {
@@ -214,7 +212,6 @@ const ContactData = props => {
       value: event.target.value
     });
     setAppointmentTime(updatedFormElement);
-    updateBookableHandler();
   };
 
   const onChangeDateHandler = date => {

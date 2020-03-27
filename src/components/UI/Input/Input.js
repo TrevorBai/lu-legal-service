@@ -36,6 +36,7 @@ const Input = props => {
           value={props.value}
           onChange={props.changed}
           required={props.required}
+          minlength={props.minlength}
         />
       );
   }

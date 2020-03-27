@@ -11,6 +11,11 @@
   text-align: center;
 }
 
+.ContactDataForm .btn {
+  margin: 5% auto;
+  padding: .5rem 2rem;
+}
+
 .CustomRow {
   display: flex;
   align-items: center;

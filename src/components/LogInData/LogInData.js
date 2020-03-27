@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LogInData.css';
 import { NavLink } from 'react-router-dom';
 import Input from '../UI/Input/Input';
 import { updateObject } from '../../shared/utility';
+import Button from '../UI/Button/Button';
 
 const LogInData = () => {
   const [username, setUsername] = useState({
@@ -23,22 +24,25 @@ const LogInData = () => {
     value: ''
   });
 
-  // const [rememberMe, setRememberMe] = useState({
-  //   elementType: 'input',
-  //   elementConfig: {
-  //     type: 'checkbox'
-  //   },
-  //   value: false
-  // });
-
   const [rememberMe, setRememberMe] = useState(false);
+  const [signInable, setSignInable] = useState(false);
+
+  useEffect(() => {
+    const updateSignInableHandler = () => {
+      if (username.value && password.value) {
+        setSignInable(true);
+      } else {
+        setSignInable(false);
+      }
+    };
+    updateSignInableHandler();
+  }, [username.value, password.value]);
 
   const onChangeUsernameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
       value: event.target.value
     });
     setUsername(updatedFormElement);
-    // updateBookableHandler()
   };
 
   const onChangePasswordHandler = (event, input) => {
@@ -46,15 +50,21 @@ const LogInData = () => {
       value: event.target.value
     });
     setPassword(updatedFormElement);
-    // updateBookableHandler()
   };
 
-  const onChangeRememberMeHandler = (event, input) => {
-    const updatedFormElement = updateObject(input, {
-      value: event.target.value
-    });
-    setRememberMe(updatedFormElement);
-    // updateBookableHandler()
+  const onChangeRememberMeHandler = event => {
+    setRememberMe(event.target.value);
+  };
+
+  const signInHandler = event => {
+    event.preventDefault();
+    const signInData = {
+      username: username.value,
+      password: password.value
+    };
+
+    // Send to backend to Auth
+    // console.log('signInData :', signInData);
   };
 
   const form = (
@@ -73,16 +83,9 @@ const LogInData = () => {
         elementConfig={password.elementConfig}
         value={password.value}
         changed={event => onChangePasswordHandler(event, password)}
+        minlength="6"
         required
       />
-      {/* <Input
-        elementType={rememberMe.elementType}
-        checkboxLabel="Remember Me"
-        elementConfig={rememberMe.elementConfig}
-        value={rememberMe.value}
-        changed={event => onChangeRememberMeHandler(event, rememberMe)}
-        required
-      /> */}
     </form>
   );
 
@@ -100,7 +103,7 @@ const LogInData = () => {
           <input
             type="checkbox"
             value={rememberMe}
-            onChange={event => onChangeRememberMeHandler(event, rememberMe)}
+            onChange={event => onChangeRememberMeHandler(event)}
           />
           <small>Remember Me</small>
         </div>
@@ -109,6 +112,15 @@ const LogInData = () => {
             <small>Forgot Password</small>
           </NavLink>
         </div>
+      </div>
+      <div className="row">
+        <Button
+          className="btn btn-primary"
+          clicked={signInHandler}
+          disabled={!signInable}
+        >
+          Sign in
+        </Button>
       </div>
     </section>
   );
