@@ -25,4 +25,12 @@
   vertical-align: middle;
 }
 
+.ContactDataForm .CheckBox {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  width: 120px;
+  white-space: nowrap;
+}
+
 textarea { height: 100px; }

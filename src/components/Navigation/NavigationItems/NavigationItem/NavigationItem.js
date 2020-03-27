@@ -1,5 +1,5 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const NavigationItem = props => (
   <li className="nav-item">
@@ -7,6 +7,6 @@ const NavigationItem = props => (
       {props.children}
     </NavLink>
   </li>
-)
+);
 
-export default NavigationItem
+export default NavigationItem;

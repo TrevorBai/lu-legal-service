@@ -17,7 +17,7 @@ const Footer = props => {
           <ul className="social-links float-right">
             <SocialMediaNav link="/" socialMediaLogo="logo-facebook"/>
             <SocialMediaNav link="/" socialMediaLogo="logo-twitter"/>
-            <SocialMediaNav link="/" socialMediaLogo="logo-googleplus"/>
+            <SocialMediaNav link="/" socialMediaLogo="logo-google"/>
             <SocialMediaNav link="/" socialMediaLogo="logo-instagram"/>
           </ul>
         </div>

@@ -1,10 +1,10 @@
 import React from 'react'
-import './AppointmentSummary.css'
+import './NewAppointmentSummary.css'
 import Button from '../../UI/Button/Button'
 
-const AppointmentSummary = props => {
+const NewAppointmentSummary = props => {
   return (
-    <section className="AppointmentSummary">
+    <section className="NewAppointmentSummary">
       <h3>Your Appointment</h3>
       <p>Dear {props.username}, <br /><br /> Your appointment regarding {props.task} has been made at {props.appointmentTime}  {props.date}.</p>
       {props.message && <p className="sub-p"><br />The additional information: {props.message}</p>}
@@ -26,4 +26,4 @@ const AppointmentSummary = props => {
   )
 }
 
-export default AppointmentSummary
+export default NewAppointmentSummary

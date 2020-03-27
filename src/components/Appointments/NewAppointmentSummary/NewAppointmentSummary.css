@@ -1,0 +1,26 @@
+.NewAppointmentSummary h3 {
+  text-align: center;
+}
+
+.NewAppointmentSummary p {
+  text-align: start;
+  margin: 2rem 3rem 0;
+
+  line-height: 150%;
+}
+
+.NewAppointmentSummary .sub-p {
+  margin-top: 0;
+}
+
+.NewAppointmentSummary .last-p {
+  margin: 2rem 3rem;
+}
+
+.NewAppointmentSummary .row {
+  padding: 3% 3rem;
+}
+
+.NewAppointmentSummary Button {
+  margin: 0 auto;
+}

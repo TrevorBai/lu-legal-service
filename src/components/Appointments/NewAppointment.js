@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import SubBanner from '../Banner/SubBanner/SubBanner'
 import ContactData from '../ContactData/ContactData'
 
-const Appointments = props => {
+const NewAppointment = props => {
   return (
     <Fragment>
       <SubBanner title={'Need advice? let us help you!'}/>
@@ -11,4 +11,4 @@ const Appointments = props => {
   )
 }
 
-export default Appointments
+export default NewAppointment

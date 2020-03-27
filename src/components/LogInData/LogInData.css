@@ -1,0 +1,45 @@
+.ContactDataForm {
+  margin: 5% 10%;
+}
+
+.ContactDataForm h2 {
+  text-align: center;
+}
+
+.ContactDataForm p {
+  margin: 0 5% 10%;
+  text-align: center;
+}
+
+.CustomRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.CustomRow-Inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px; 
+  height: 24px;
+  white-space: nowrap; 
+}
+
+.CustomRow-Inner input {
+  max-width: 20px;
+}
+
+.ForgetPassword {
+  height: 28px;
+}
+
+.ForgetPassword small {
+  color: black;
+}
+
+.ForgetPassword a:hover {
+  text-decoration: none;
+}
