@@ -52,8 +52,8 @@ const LogInData = () => {
     setPassword(updatedFormElement);
   };
 
-  const onChangeRememberMeHandler = event => {
-    setRememberMe(event.target.value);
+  const onChangeRememberMeHandler = () => {
+    setRememberMe(prevRememberMe => !prevRememberMe);
   };
 
   const signInHandler = event => {
@@ -64,7 +64,7 @@ const LogInData = () => {
     };
 
     // Send to backend to Auth
-    // console.log('signInData :', signInData);
+    console.log('signInData :', signInData);
   };
 
   const form = (
@@ -83,7 +83,7 @@ const LogInData = () => {
         elementConfig={password.elementConfig}
         value={password.value}
         changed={event => onChangePasswordHandler(event, password)}
-        minlength="6"
+        minLength="6"
         required
       />
     </form>
@@ -103,7 +103,7 @@ const LogInData = () => {
           <input
             type="checkbox"
             value={rememberMe}
-            onChange={event => onChangeRememberMeHandler(event)}
+            onChange={onChangeRememberMeHandler}
           />
           <small>Remember Me</small>
         </div>

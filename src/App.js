@@ -1,22 +1,26 @@
-import React, { Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import LegalService from './components/LegalService/LegalService'
 import Layout from './hoc/Layout/Layout'
 
-const NewAppointment = React.lazy(() => {
+const NewAppointment = lazy(() => {
   return import('./components/Appointments/NewAppointment')
 })
 
-const ContactUs = React.lazy(() => {
+const ContactUs = lazy(() => {
   return import('./components/ContactUs/ContactUs')
 })
 
-const SignIn = React.lazy(() => {
+const SignIn = lazy(() => {
   return import('./components/SignIn/SignIn')
 })
 
-const Register = React.lazy(() => {
+const Register = lazy(() => {
   return import('./components/Register/Register')
+})
+
+const PasswordReset = lazy(() => {
+  return import('./components/PasswordReset/PasswordReset')
 })
 
 const App = () => {
@@ -26,6 +30,7 @@ const App = () => {
       <Route path="/appointments" render={props => <NewAppointment {...props} />} />
       <Route path="/contact" render={props => <ContactUs {...props} />} />
       <Route path="/signIn" render={props => <SignIn {...props} />} />
+      <Route path="/passwordReset" render={props => <PasswordReset {...props} />} />
       <Route path="/register" render={props => <Register {...props} />} />
     </Switch>
   )
