@@ -6,11 +6,12 @@ import { updateObject } from '../../shared/utility';
 import Button from '../UI/Button/Button';
 
 const LogInData = () => {
-  const [username, setUsername] = useState({
+
+  const [email, setEmail] = useState({
     elementType: 'input',
     elementConfig: {
-      type: 'text',
-      placeholder: 'Your Username'
+      type: 'email',
+      placeholder: 'Your Email'
     },
     value: ''
   });
@@ -29,20 +30,20 @@ const LogInData = () => {
 
   useEffect(() => {
     const updateSignInableHandler = () => {
-      if (username.value && password.value) {
+      if (email.value && password.value) {
         setSignInable(true);
       } else {
         setSignInable(false);
       }
     };
     updateSignInableHandler();
-  }, [username.value, password.value]);
+  }, [email.value, password.value]);
 
-  const onChangeUsernameHandler = (event, input) => {
+  const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
       value: event.target.value
     });
-    setUsername(updatedFormElement);
+    setEmail(updatedFormElement);
   };
 
   const onChangePasswordHandler = (event, input) => {
@@ -59,7 +60,7 @@ const LogInData = () => {
   const signInHandler = event => {
     event.preventDefault();
     const signInData = {
-      username: username.value,
+      email: email.value,
       password: password.value
     };
 
@@ -70,11 +71,11 @@ const LogInData = () => {
   const form = (
     <form className="LogInDataForm">
       <Input
-        elementType={username.elementType}
-        label="Username"
-        elementConfig={username.elementConfig}
-        value={username.value}
-        changed={event => onChangeUsernameHandler(event, username)}
+        elementType={email.elementType}
+        label="Email"
+        elementConfig={email.elementConfig}
+        value={email.value}
+        changed={event => onChangeEmailHandler(event, email)}
         required
       />
       <Input
@@ -83,7 +84,7 @@ const LogInData = () => {
         elementConfig={password.elementConfig}
         value={password.value}
         changed={event => onChangePasswordHandler(event, password)}
-        minLength="6"
+        minLength="7"
         required
       />
     </form>

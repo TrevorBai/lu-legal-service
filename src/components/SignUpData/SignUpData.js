@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './SignUpData.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import Input from '../UI/Input/Input';
 import { updateObject } from '../../shared/utility';
 import Button from '../UI/Button/Button';
+import * as userActions from '../../store/actions/index';
+import Spinner from '../UI/Spinner/Spinner';
 
 const SignUpData = () => {
   const [firstName, setFirstName] = useState({
@@ -62,6 +65,13 @@ const SignUpData = () => {
 
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [signUpable, setSignUpable] = useState(false);
+
+  const loading = useSelector(state => state.user.loading);
+  const token = useSelector(state => state.user.token);
+  const error = useSelector(state => state.user.error);
+
+  const dispatch = useDispatch();
+  const onRegisterUser = formData => dispatch(userActions.registerUser(formData));
 
   useEffect(() => {
     const updateSignUpableHandler = () => {
@@ -132,7 +142,8 @@ const SignUpData = () => {
     };
 
     // Send to backend to Auth
-    console.log('signUpData :', signUpData);
+    // console.log('signUpData :', signUpData);
+    onRegisterUser(signUpData);
   };
 
   const form = <form className="SignUpDataForm">
@@ -188,15 +199,16 @@ const SignUpData = () => {
     />
   </form>
 
-
   return (
     <section className="ContactDataForm">
+      {token && <Redirect to="/welcome" />}
       <h2>Create Your Account</h2>
       <p>
         Please complete to create your account. If you already have an account,
         please click on&nbsp;
         <NavLink to="/signIn">Sign in</NavLink>.
       </p>
+      {error && <p>{error}</p>}
       {form}
       <div className="Terms">
         <input
@@ -212,8 +224,9 @@ const SignUpData = () => {
           clicked={signUpHandler}
           disabled={!signUpable}
         >
-          Sign up
+          Sign up<span></span>
         </Button>
+        {loading && <Spinner />}
       </div>
     </section>
   );

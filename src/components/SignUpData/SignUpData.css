@@ -11,8 +11,15 @@
   text-align: center;
 }
 
+.ContactDataForm .row {
+  display: flex;
+  /* position: relative; */
+  justify-content: center;
+  align-items: center;
+}
+
 .ContactDataForm .btn {
-  margin: 5% auto;
+  margin: 5% 0;
   padding: .5rem 2rem;
 }
 

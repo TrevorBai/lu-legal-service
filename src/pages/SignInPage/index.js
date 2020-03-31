@@ -1,6 +1,6 @@
 import React from 'react';
-import SubBanner from '../Banner/SubBanner/SubBanner';
-import LogInData from '../LogInData/LogInData';
+import SubBanner from '../../components/Banner/SubBanner/SubBanner';
+import LogInData from '../../components/LogInData/LogInData';
 
 const SignIn = () => {
   return (

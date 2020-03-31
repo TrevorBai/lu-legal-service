@@ -148,9 +148,9 @@ const ContactData = props => {
 
   const [bookable, setBookable] = useState(false); // local UI state
 
-  const loading = useSelector(state => state.loading);
-  const booking = useSelector(state => state.booking);
-  const booked = useSelector(state => state.booked);
+  const loading = useSelector(state => state.appointment.loading);
+  const booking = useSelector(state => state.appointment.booking);
+  const booked = useSelector(state => state.appointment.booked);
 
   const dispatch = useDispatch();
   const onBookAppointment = formData =>

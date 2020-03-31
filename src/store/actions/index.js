@@ -3,4 +3,7 @@ export {
   closeModal,
   bookAppointment,
   bookAppointmentInit
-} from './appointment'
+} from './appointment';
+export {
+  registerUser
+} from './user';

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const Spinner = () => (
-  <div className="d-flex justify-content-center">
-    <div className="spinner-border m-5" role="status">
+  <div className="text-center">
+    <div className="spinner-border m-2" role="status">
       <span className="sr-only">Loading...</span>
     </div>
   </div>
-)
+);
 
-export default Spinner
+export default Spinner;
