@@ -66,8 +66,8 @@ const SignUpData = () => {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [signUpable, setSignUpable] = useState(false);
 
+  const token = localStorage.getItem('token');
   const loading = useSelector(state => state.user.loading);
-  const token = useSelector(state => state.user.token);
   const error = useSelector(state => state.user.error);
 
   const dispatch = useDispatch();

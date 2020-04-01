@@ -5,5 +5,6 @@ export {
   bookAppointmentInit
 } from './appointment';
 export {
-  registerUser
+  registerUser,
+  fetchUser
 } from './user';

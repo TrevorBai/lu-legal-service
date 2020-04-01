@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from '../../Logo/Logo'
 import NavigationItems from '../NavigationItems/NavigationItems'
 
-const NavBar = props => (
+const NavBar = () => (
   <header>
     <nav className="d-flex pr-auto fixed-top navbar navbar-expand-sm bg-dark navbar-dark">
       <Logo />
