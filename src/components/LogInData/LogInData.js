@@ -19,7 +19,7 @@ const LogInData = () => {
   const [password, setPassword] = useState({
     elementType: 'input',
     elementConfig: {
-      type: 'text',
+      type: 'password',
       placeholder: 'Your Password'
     },
     value: ''

@@ -48,7 +48,7 @@ const SignUpData = () => {
   const [password, setPassword] = useState({
     elementType: 'input',
     elementConfig: {
-      type: 'text',
+      type: 'password',
       placeholder: 'Your Password'
     },
     value: ''
@@ -57,7 +57,7 @@ const SignUpData = () => {
   const [confirmedPassword, setConfirmedPassword] = useState({
     elementType: 'input',
     elementConfig: {
-      type: 'text',
+      type: 'password',
       placeholder: 'Confirm Password'
     },
     value: ''

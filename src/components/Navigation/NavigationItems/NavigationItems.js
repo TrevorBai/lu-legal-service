@@ -2,14 +2,14 @@ import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import './NavigationItems.css';
 import CollapsableNavigationItem from './CollapsableNavigationItem/CollapsableNavigationItem';
-import { useDispatch, useSelector } from 'react-redux';
 
 const NavigationItems = () => {
   const token = localStorage.getItem('token');
-  const user = useSelector(state => state.user.user);
+  const stringifiedUser = localStorage.getItem('name');
+  const user = JSON.parse(stringifiedUser);
 
   return (
-    <ul className="navbar-nav ml-auto">
+    <ul className="navbar-nav ml-auto d-flex">
       <NavigationItem link="/" exact>
         Home
       </NavigationItem>
@@ -35,11 +35,22 @@ const NavigationItems = () => {
       )}
       <NavigationItem link="/contact">Contact</NavigationItem>
       {token ? (
-        <NavigationItem link="/profile">
-          <span className="ProfileIcon">
-            {user && user.firstName.charAt() + user.lastName.charAt()}
-          </span>
-        </NavigationItem>
+        <CollapsableNavigationItem
+          isProfile="true"
+          toLeft="true"
+          headerName={user && user.firstName.charAt() + user.lastName.charAt()}
+          headerLink="/profile"
+          dropdownItems={[
+            {
+              name: 'Log Out',
+              link: '/logout'
+            },
+            {
+              name: 'Log Out ALL',
+              link: '/logoutAll'
+            }
+          ]}
+        />
       ) : (
         <CollapsableNavigationItem
           headerName="Sign In"

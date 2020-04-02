@@ -26,7 +26,7 @@ const registerUserFail = (state, action) => {
   });
 };
 
-const fetchUserStart = (state) => {
+const fetchUserStart = state => {
   return updateObject(state, { loading: true });
 };
 
@@ -35,10 +35,28 @@ const fetchUserSuccess = (state, action) => {
   return updateObject(state, {
     user: fetchedUser,
     loading: false
-  })
+  });
 };
 
 const fetchUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+};
+
+const logoutUserStart = state => {
+  return updateObject(state, { loading: true });
+};
+
+const logoutUserSuccess = state => {
+  return updateObject(state, {
+    user: null,
+    loading: false
+  });
+};
+
+const logoutUserFail = (state, action) => {
   return updateObject(state, {
     loading: false,
     error: action.error
@@ -59,6 +77,12 @@ const userReducer = (state = initialState, action) => {
       return fetchUserSuccess(state, action);
     case actionTypes.FETCH_USER_FAIL:
       return fetchUserFail(state, action);
+    case actionTypes.LOGOUT_USER_START:
+      return logoutUserStart(state);
+    case actionTypes.LOGOUT_USER_SUCCESS:
+      return logoutUserSuccess(state);
+    case actionTypes.LOGOUT_USER_FAIL:
+      return logoutUserFail(state, action);
     default:
       return state;
   }

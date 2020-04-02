@@ -45,3 +45,11 @@
   -o-border-radius: 50%;
 }
 
+.ShiftDown {
+  top: 3.5rem;
+  right: -1rem;
+}
+
+.d-flex {
+  align-items: center;
+}

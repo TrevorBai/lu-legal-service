@@ -10,7 +10,12 @@ export const registerUser = formData => {
         formData
       );
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('name', JSON.stringify({
+        firstName: response.data.user.firstName,
+        lastName: response.data.user.lastName
+      }));
       dispatch(registerUserSuccess(response.data));
+      dispatch(checkTokenTimeout());
     } catch (error) {
       dispatch(registerUserFail(error.response.data.error));
     }
@@ -47,10 +52,9 @@ export const fetchUser = token => {
   return async dispatch => {
     dispatch(fetchUserStart());
     try {
-      const response = await axios.get(
-        'http://localhost:5000/api/users/me',
-        { headers: { Authorization: token }}
-      );
+      const response = await axios.get('http://localhost:5000/api/users/me', {
+        headers: { Authorization: token }
+      });
       dispatch(fetchUserSuccess(response.data));
     } catch (error) {
       dispatch(fetchUserFail(error.response.data.error));
@@ -75,5 +79,48 @@ export const fetchUserFail = error => {
   return {
     type: actionTypes.FETCH_USER_FAIL,
     error
+  };
+};
+
+export const logoutUser = token => {
+  return async dispatch => {
+    dispatch(logoutUserStart());
+    try {
+      await axios.post('http://localhost:5000/api/users/logout', {
+        headers: { Authorization: token }
+      });
+      localStorage.removeItem('token');
+      dispatch(logoutUserSuccess());
+    } catch (error) {
+      dispatch(logoutUserFail(error));
+    }
+  };
+};
+
+export const logoutUserStart = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_START
+  };
+};
+
+export const logoutUserSuccess = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_SUCCESS
+  };
+};
+
+export const logoutUserFail = error => {
+  return {
+    type: actionTypes.LOGOUT_USER_FAIL,
+    error
+  };
+};
+
+export const checkTokenTimeout = () => {
+  return dispatch => {
+    setTimeout(() => {
+      localStorage.removeItem('token');
+      dispatch(logoutUser());
+    }, 3600 * 1000);
   };
 };
