@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import SubBanner from '../../components/Banner/SubBanner/SubBanner';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -7,17 +7,16 @@ import * as userActions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const WelcomePage = () => {
+  const loading = useSelector(state => state.user.loading);
+  const user = useSelector(state => state.user.user);
   const token = localStorage.getItem('token');
 
-  const user = useSelector(state => state.user.user);
-  const loading = useSelector(state => state.user.loading);
-
   const dispatch = useDispatch();
+  const onFetchUser = useCallback(() => dispatch(userActions.fetchUser()), [dispatch]);
 
   useEffect(() => {
-    const onFetchUser = token => dispatch(userActions.fetchUser(token));
-    onFetchUser(token);
-  }, [dispatch, token]);
+    onFetchUser();
+  }, [onFetchUser]);
 
   const welcomeMessage = (
     <div>
@@ -34,7 +33,7 @@ const WelcomePage = () => {
 
   return (
     <div>
-      {!user && <Redirect to="/signIn" />}
+      {!token && <Redirect to="/signIn" />}
       <SubBanner title={'Welcome'} />
       <section className="ContactDataForm">
         {loading && <Spinner />}

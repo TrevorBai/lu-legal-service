@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
-import NewAppointmentSummary from '../Appointments/NewAppointmentSummary/NewAppointmentSummary';
+import NewAppointmentSummary from '../NewAppointmentSummary/NewAppointmentSummary';
 import Spinner from '../UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
 import * as appointmentActions from '../../store/actions/index';

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import SubBanner from '../Banner/SubBanner/SubBanner';
-import './PasswordReset.css';
-import Input from '../UI/Input/Input';
+import SubBanner from '../../components/Banner/SubBanner/SubBanner';
+import './PasswordResetPage.css';
+import Input from '../../components/UI/Input/Input';
 import { updateObject } from '../../shared/utility';
-import Button from '../UI/Button/Button';
+import Button from '../../components/UI/Button/Button';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'Your Email'
+      placeholder: 'Your Email',
     },
-    value: ''
+    value: '',
   });
 
   const [sendable, setSendable] = useState(false);
@@ -30,15 +30,15 @@ const PasswordReset = () => {
 
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setEmail(updatedFormElement);
   };
 
-  const sendPasswordResetHandler = event => {
+  const sendPasswordResetHandler = (event) => {
     event.preventDefault();
     const emailData = {
-      email: email.value
+      email: email.value,
     };
 
     // Send to backend to Auth
@@ -58,7 +58,7 @@ const PasswordReset = () => {
           label="Email"
           elementConfig={email.elementConfig}
           value={email.value}
-          changed={event => onChangeEmailHandler(event, email)}
+          changed={(event) => onChangeEmailHandler(event, email)}
           required
         />
         <div className="row">

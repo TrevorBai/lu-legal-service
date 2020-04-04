@@ -7,6 +7,7 @@ import { updateObject } from '../../shared/utility';
 import Button from '../UI/Button/Button';
 import * as userActions from '../../store/actions/index';
 import Spinner from '../UI/Spinner/Spinner';
+import errorHandler from '../../errorHandler';
 
 const SignUpData = () => {
   const [firstName, setFirstName] = useState({
@@ -206,7 +207,7 @@ const SignUpData = () => {
         please click on&nbsp;
         <NavLink to="/signIn">Sign in</NavLink>.
       </p>
-      {error && <p>Error!</p>}
+      {error && <div className="Error">{errorHandler(error)}</div>}
       {form}
       <div className="Terms">
         <input

@@ -7,6 +7,7 @@ import { updateObject } from '../../shared/utility';
 import Button from '../UI/Button/Button';
 import * as userActions from '../../store/actions/index';
 import Spinner from '../UI/Spinner/Spinner';
+import errorHandler from '../../errorHandler';
 
 const LogInData = () => {
 
@@ -109,7 +110,7 @@ const LogInData = () => {
         please click on&nbsp;
         <NavLink to="/register">Register</NavLink>.
       </p>
-      {error && <p>Error!</p>}
+      {error && <div className="Error" >{errorHandler(error)}</div>}
       {form}
       <div className="CustomRow">
         <div className="col-sm-6 CustomRow-Inner">

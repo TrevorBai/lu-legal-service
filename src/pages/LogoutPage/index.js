@@ -7,12 +7,10 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import * as userActions from '../../store/actions/index';
 
 const LogoutPage = () => {
-  const loading = useSelector((state) => state.user.loading);
-  const user = useSelector((state) => state.user.user);
+  const loading = useSelector(state => state.user.loading);
+  const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
-  const onLogoutUser = useCallback(() => dispatch(userActions.logoutUser()), [
-    dispatch,
-  ]);
+  const onLogoutUser = useCallback(() => dispatch(userActions.logoutUser()), [dispatch]);
 
   useEffect(() => {
     onLogoutUser();

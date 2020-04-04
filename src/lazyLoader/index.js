@@ -1,11 +1,11 @@
 import { lazy } from 'react';
 
 export const NewAppointment = lazy(() => {
-  return import('../components/Appointments/NewAppointment');
+  return import('../pages/NewAppointmentPage');
 });
 
 export const ContactUs = lazy(() => {
-  return import('../components/ContactUs/ContactUs');
+  return import('../pages/ContactUsPage');
 });
 
 export const SignInPage = lazy(() => {
@@ -17,7 +17,7 @@ export const RegisterPage = lazy(() => {
 });
 
 export const PasswordReset = lazy(() => {
-  return import('../components/PasswordReset/PasswordReset');
+  return import('../pages/PasswordResetPage');
 });
 
 export const WelcomePage = lazy(() => {

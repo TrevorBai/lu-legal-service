@@ -1,14 +1,12 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as path from '../../constants/api/urls';
 
 export const registerUser = (formData) => {
   return async (dispatch) => {
     dispatch(registerUserStart());
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/users',
-        formData
-      );
+      const response = await axios.post(path.REGISTER_USER, formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem(
         'name',
@@ -51,11 +49,12 @@ export const registerUserInit = () => {
   };
 };
 
-export const fetchUser = (token) => {
+export const fetchUser = () => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
     try {
-      const response = await axios.get('http://localhost:5000/api/users/me', {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(path.FETCH_USER, {
         headers: { Authorization: token },
       });
       dispatch(fetchUserSuccess(response.data));
@@ -90,7 +89,7 @@ export const logoutUser = () => {
     dispatch(logoutUserStart());
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/users/logout', {
+      await axios.post(path.LOGOUT_USER, {
         headers: { Authorization: token },
       });
       localStorage.removeItem('token');
@@ -134,10 +133,7 @@ export const loginUser = (formData) => {
   return async (dispatch) => {
     dispatch(loginUserStart());
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/users/login',
-        formData
-      );
+      const response = await axios.post(path.LOGIN_USER, formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem(
         'name',
