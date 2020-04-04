@@ -41,7 +41,8 @@ const fetchUserSuccess = (state, action) => {
 const fetchUserFail = (state, action) => {
   return updateObject(state, {
     loading: false,
-    error: action.error
+    error: action.error,
+    user: null
   });
 };
 
