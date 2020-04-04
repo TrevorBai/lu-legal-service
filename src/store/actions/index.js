@@ -6,5 +6,7 @@ export {
 } from './appointment';
 export {
   registerUser,
-  fetchUser
+  fetchUser,
+  logoutUser,
+  loginUser
 } from './user';

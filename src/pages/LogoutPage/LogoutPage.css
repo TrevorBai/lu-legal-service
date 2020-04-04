@@ -1,0 +1,12 @@
+.ContactDataForm {
+  margin: 5% 10%;
+}
+
+.ContactDataForm h2 {
+  text-align: center;
+}
+
+.ContactDataForm p {
+  margin: 0 5% 10%;
+  text-align: center;
+}

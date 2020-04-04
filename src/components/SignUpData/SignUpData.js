@@ -141,8 +141,6 @@ const SignUpData = () => {
       confirmedPassword: confirmedPassword.value
     };
 
-    // Send to backend to Auth
-    // console.log('signUpData :', signUpData);
     onRegisterUser(signUpData);
   };
 
@@ -208,7 +206,7 @@ const SignUpData = () => {
         please click on&nbsp;
         <NavLink to="/signIn">Sign in</NavLink>.
       </p>
-      {error && <p>{error}</p>}
+      {error && <p>Error!</p>}
       {form}
       <div className="Terms">
         <input
@@ -224,7 +222,7 @@ const SignUpData = () => {
           clicked={signUpHandler}
           disabled={!signUpable}
         >
-          Sign up<span></span>
+          Sign up
         </Button>
         {loading && <Spinner />}
       </div>

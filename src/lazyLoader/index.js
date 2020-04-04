@@ -23,3 +23,7 @@ export const PasswordReset = lazy(() => {
 export const WelcomePage = lazy(() => {
   return import('../pages/WelcomePage');
 });
+
+export const LogoutPage = lazy(() => {
+  return import('../pages/LogoutPage');
+});

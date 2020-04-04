@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import SubBanner from '../../components/Banner/SubBanner/SubBanner';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './WelcomePage.css';
 import * as userActions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';

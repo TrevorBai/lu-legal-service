@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './LogInData.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import Input from '../UI/Input/Input';
 import { updateObject } from '../../shared/utility';
 import Button from '../UI/Button/Button';
+import * as userActions from '../../store/actions/index';
+import Spinner from '../UI/Spinner/Spinner';
 
 const LogInData = () => {
 
@@ -27,6 +30,13 @@ const LogInData = () => {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [signInable, setSignInable] = useState(false);
+
+  const token = localStorage.getItem('token');
+  const loading = useSelector(state => state.user.loading);
+  const error = useSelector(state => state.user.error);
+
+  const dispatch = useDispatch();
+  const onLoginUser = formData => dispatch(userActions.loginUser(formData));
 
   useEffect(() => {
     const updateSignInableHandler = () => {
@@ -65,7 +75,7 @@ const LogInData = () => {
     };
 
     // Send to backend to Auth
-    console.log('signInData :', signInData);
+    onLoginUser(signInData);
   };
 
   const form = (
@@ -92,12 +102,14 @@ const LogInData = () => {
 
   return (
     <section className="ContactDataForm">
+      {token && <Redirect to="/welcome" />}
       <h2>Welcome back!</h2>
       <p>
         Please login to your account. If you haven't register an account yet,
         please click on&nbsp;
         <NavLink to="/register">Register</NavLink>.
       </p>
+      {error && <p>Error!</p>}
       {form}
       <div className="CustomRow">
         <div className="col-sm-6 CustomRow-Inner">
@@ -122,6 +134,7 @@ const LogInData = () => {
         >
           Sign in
         </Button>
+        {loading && <Spinner />}
       </div>
     </section>
   );

@@ -63,6 +63,25 @@ const logoutUserFail = (state, action) => {
   });
 };
 
+const loginUserStart = state => {
+  return updateObject(state, { loading: true });
+};
+
+const loginUserSuccess = (state, action) => {
+  const fetchedUser = { ...action.formData.user };
+  return updateObject(state, {
+    user: fetchedUser,
+    loading: false
+  });
+};
+
+const loginUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+};
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.REGISTER_USER_START:
@@ -83,6 +102,12 @@ const userReducer = (state = initialState, action) => {
       return logoutUserSuccess(state);
     case actionTypes.LOGOUT_USER_FAIL:
       return logoutUserFail(state, action);
+    case actionTypes.LOGIN_USER_START:
+      return loginUserStart(state);
+    case actionTypes.LOGIN_USER_SUCCESS:
+      return loginUserSuccess(state, action);
+    case actionTypes.LOGIN_USER_FAIL:
+      return loginUserFail(state, action);
     default:
       return state;
   }
