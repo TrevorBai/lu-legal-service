@@ -59,6 +59,8 @@ export const fetchUser = () => {
       });
       dispatch(fetchUserSuccess(response.data));
     } catch (error) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
       dispatch(fetchUserFail(error));
     }
   };
@@ -96,7 +98,6 @@ export const logoutUser = () => {
       localStorage.removeItem('name');
       dispatch(logoutUserSuccess());
     } catch (error) {
-      console.log(error.response.data);
       dispatch(logoutUserFail(error.response.data));
     }
   };
@@ -117,6 +118,42 @@ export const logoutUserSuccess = () => {
 export const logoutUserFail = (error) => {
   return {
     type: actionTypes.LOGOUT_USER_FAIL,
+    error,
+  };
+};
+
+export const logoutUserAll = () => {
+  return async (dispatch) => {
+    dispatch(logoutUserAllStart());
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post(path.LOGOUT_USER_ALL, {
+        headers: { Authorization: token },
+      });
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
+      dispatch(logoutUserAllSuccess());
+    } catch (error) {
+      dispatch(logoutUserAllFail(error.response.data));
+    }
+  };
+};
+
+export const logoutUserAllStart = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_ALL_START,
+  };
+};
+
+export const logoutUserAllSuccess = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_ALL_SUCCESS,
+  };
+};
+
+export const logoutUserAllFail = (error) => {
+  return {
+    type: actionTypes.LOGOUT_USER_ALL_FAIL,
     error,
   };
 };

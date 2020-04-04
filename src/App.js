@@ -36,6 +36,14 @@ const App = () => {
         path="/logout"
         render={props => <lazyLoader.LogoutPage {...props} />}
       />
+      <Route
+        path="/logoutAll"
+        render={props => <lazyLoader.LogoutAllPage {...props} />}
+      />
+      <Route
+        path="/profile"
+        render={props => <lazyLoader.ProfilePage {...props} />}
+      />
     </Switch>
   );
 

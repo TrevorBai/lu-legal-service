@@ -8,5 +8,6 @@ export {
   registerUser,
   fetchUser,
   logoutUser,
+  logoutUserAll,
   loginUser
 } from './user';

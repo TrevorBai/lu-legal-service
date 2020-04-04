@@ -1,11 +1,10 @@
 import React from 'react';
 
 const errorHandler = (error) => {
-  if (typeof error === 'object') {
+  while (typeof error === 'object') {
     const key = Object.keys(error)[0];
-    let errorMessage = error[key];
-    console.log(errorMessage);
-    return <b>{errorMessage}</b>;
+    error = error[key];
+    if (typeof error !== 'object') return <b>{error}</b>;
   }
 
   if (error.includes('shorter than the minimum allowed length (7)')) {
@@ -29,4 +28,3 @@ const errorHandler = (error) => {
 };
 
 export default errorHandler;
-

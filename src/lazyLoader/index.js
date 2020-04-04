@@ -27,3 +27,11 @@ export const WelcomePage = lazy(() => {
 export const LogoutPage = lazy(() => {
   return import('../pages/LogoutPage');
 });
+
+export const LogoutAllPage = lazy(() => {
+  return import('../pages/LogoutAllPage');
+});
+
+export const ProfilePage = lazy(() => {
+  return import('../pages/ProfilePage');
+});

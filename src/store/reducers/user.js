@@ -63,6 +63,24 @@ const logoutUserFail = (state, action) => {
   });
 };
 
+const logoutUserAllStart = state => {
+  return updateObject(state, { loading: true });
+};
+
+const logoutUserAllSuccess = state => {
+  return updateObject(state, {
+    user: null,
+    loading: false
+  });
+};
+
+const logoutUserAllFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+};
+
 const loginUserStart = state => {
   return updateObject(state, { loading: true });
 };
@@ -102,6 +120,12 @@ const userReducer = (state = initialState, action) => {
       return logoutUserSuccess(state);
     case actionTypes.LOGOUT_USER_FAIL:
       return logoutUserFail(state, action);
+    case actionTypes.LOGOUT_USER_ALL_START:
+      return logoutUserAllStart(state);
+    case actionTypes.LOGOUT_USER_ALL_SUCCESS:
+      return logoutUserAllSuccess(state);
+    case actionTypes.LOGOUT_USER_ALL_FAIL:
+      return logoutUserAllFail(state, action);
     case actionTypes.LOGIN_USER_START:
       return loginUserStart(state);
     case actionTypes.LOGIN_USER_SUCCESS:
