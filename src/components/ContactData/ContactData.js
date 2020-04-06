@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { NavLink, Redirect } from 'react-router-dom';
 import './ContactData.css';
 import Input from '../UI/Input/Input';
 import DatePicker from 'react-datepicker';
@@ -10,27 +9,26 @@ import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import NewAppointmentSummary from '../NewAppointmentSummary/NewAppointmentSummary';
 import Spinner from '../UI/Spinner/Spinner';
-import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
-import * as appointmentActions from '../../store/actions/index';
+import * as actions from '../../store/actions';
 import { updateObject } from '../../shared/utility';
 
-const ContactData = props => {
+const ContactData = () => {
   const [username, setUsername] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Your Name'
+      placeholder: 'Your Name',
     },
-    value: ''
+    value: '',
   });
 
   const [email, setEmail] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'Your Email'
+      placeholder: 'Your Email',
     },
-    value: ''
+    value: '',
   });
 
   const [task, setTask] = useState({
@@ -39,27 +37,27 @@ const ContactData = props => {
       options: [
         {
           value: '',
-          displayValue: 'Please select one category'
+          displayValue: 'Please select one category',
         },
         {
           value: 'traffic tickets',
-          displayValue: 'Traffic tickets'
+          displayValue: 'Traffic tickets',
         },
         {
           value: 'landlord and tenant',
-          displayValue: 'Landlord and tenant'
+          displayValue: 'Landlord and tenant',
         },
         {
           value: 'small claims',
-          displayValue: 'Small claims'
+          displayValue: 'Small claims',
         },
         {
           value: 'commission oaths',
-          displayValue: 'Commission oaths'
-        }
-      ]
+          displayValue: 'Commission oaths',
+        },
+      ],
     },
-    value: ''
+    value: '',
   });
 
   const [appointmentTime, setAppointmentTime] = useState({
@@ -68,71 +66,71 @@ const ContactData = props => {
       options: [
         {
           value: '',
-          displayValue: 'Please select a specific time'
+          displayValue: 'Please select a specific time',
         },
         {
           value: '9:00 AM',
-          displayValue: '9:00 AM'
+          displayValue: '9:00 AM',
         },
         {
           value: '9:30 AM',
-          displayValue: '9:30 AM'
+          displayValue: '9:30 AM',
         },
         {
           value: '10:00 AM',
-          displayValue: '10:00 AM'
+          displayValue: '10:00 AM',
         },
         {
           value: '10:30 AM',
-          displayValue: '10:30 AM'
+          displayValue: '10:30 AM',
         },
         {
           value: '11:00 AM',
-          displayValue: '11:00 AM'
+          displayValue: '11:00 AM',
         },
         {
           value: '11:30 AM',
-          displayValue: '11:30 AM'
+          displayValue: '11:30 AM',
         },
         {
           value: '1:00 PM',
-          displayValue: '1:00 PM'
+          displayValue: '1:00 PM',
         },
         {
           value: '1:30 PM',
-          displayValue: '1:30 PM'
+          displayValue: '1:30 PM',
         },
         {
           value: '2:00 PM',
-          displayValue: '2:00 PM'
+          displayValue: '2:00 PM',
         },
         {
           value: '2:30 PM',
-          displayValue: '2:30 PM'
+          displayValue: '2:30 PM',
         },
         {
           value: '3:00 PM',
-          displayValue: '3:00 PM'
+          displayValue: '3:00 PM',
         },
         {
           value: '3:30 PM',
-          displayValue: '3:30 PM'
+          displayValue: '3:30 PM',
         },
         {
           value: '4:00 PM',
-          displayValue: '4:00 PM'
+          displayValue: '4:00 PM',
         },
         {
           value: '4:30 PM',
-          displayValue: '4:30 PM'
+          displayValue: '4:30 PM',
         },
         {
           value: '5:00 PM',
-          displayValue: '5:00 PM'
-        }
-      ]
+          displayValue: '5:00 PM',
+        },
+      ],
     },
-    value: ''
+    value: '',
   });
 
   const [date, setDate] = useState(new Date());
@@ -141,38 +139,54 @@ const ContactData = props => {
     elementType: 'textarea',
     elementConfig: {
       type: '',
-      placeholder: 'Your Message'
+      placeholder: 'Your Message',
     },
-    value: ''
+    value: '',
   });
 
   const [bookable, setBookable] = useState(false); // local UI state
 
-  const loading = useSelector(state => state.appointment.loading);
-  const booking = useSelector(state => state.appointment.booking);
-  const booked = useSelector(state => state.appointment.booked);
+  const loading = useSelector((state) => state.appointment.loading);
+  const booking = useSelector((state) => state.appointment.booking);
+  const booked = useSelector((state) => state.appointment.booked);
+  const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
-  const onBookAppointment = formData =>
-    dispatch(appointmentActions.bookAppointment(formData));
-  const onOpenModal = () => dispatch(appointmentActions.openModal());
-  const onCloseModal = () => dispatch(appointmentActions.closeModal());
+  const onBookAppointment = (formData) =>
+    dispatch(actions.bookAppointment(formData));
+  const onOpenModal = () => dispatch(actions.openModal());
+  const onCloseModal = () => dispatch(actions.closeModal());
+  const onFetchUser = useCallback(() => dispatch(actions.fetchUser()), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     const updateBookableHandler = () => {
-      if (username.value && email.value && task.value && appointmentTime.value) {
+      if (
+        username.value &&
+        email.value &&
+        task.value &&
+        appointmentTime.value
+      ) {
         setBookable(true);
       } else {
         setBookable(false);
       }
     };
     updateBookableHandler();
-  }, [username.value, email.value, task.value, appointmentTime.value]);
+    onFetchUser();
+  }, [
+    username.value,
+    email.value,
+    task.value,
+    appointmentTime.value,
+    onFetchUser,
+  ]);
 
   const compoundDateFormat =
     date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
 
-  const appointmentHandler = async event => {
+  const appointmentHandler = async (event) => {
     event.preventDefault();
     const formData = {
       username: username.value,
@@ -180,7 +194,7 @@ const ContactData = props => {
       task: task.value,
       appointmentTime: appointmentTime.value,
       date: compoundDateFormat,
-      message: message.value
+      message: message.value,
     };
 
     onBookAppointment(formData);
@@ -188,44 +202,44 @@ const ContactData = props => {
 
   const onChangeUsernameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setUsername(updatedFormElement);
   };
 
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setEmail(updatedFormElement);
   };
 
   const onChangeTaskHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setTask(updatedFormElement);
   };
 
   const onChangeAppointmentTimeHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setAppointmentTime(updatedFormElement);
   };
 
-  const onChangeDateHandler = date => {
+  const onChangeDateHandler = (date) => {
     setDate(date);
   };
 
   const onChangeMessageHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setMessage(updatedFormElement);
   };
 
-  const bookAnAppointmentHandler = event => {
+  const bookAnAppointmentHandler = (event) => {
     event.preventDefault();
     onOpenModal();
   };
@@ -241,7 +255,7 @@ const ContactData = props => {
         label="Name"
         elementConfig={username.elementConfig}
         value={username.value}
-        changed={event => onChangeUsernameHandler(event, username)}
+        changed={(event) => onChangeUsernameHandler(event, username)}
         required
       />
       <Input
@@ -249,7 +263,7 @@ const ContactData = props => {
         label="Email"
         elementConfig={email.elementConfig}
         value={email.value}
-        changed={event => onChangeEmailHandler(event, email)}
+        changed={(event) => onChangeEmailHandler(event, email)}
         required
       />
       <Input
@@ -257,7 +271,7 @@ const ContactData = props => {
         label="Category"
         elementConfig={task.elementConfig}
         value={task.value}
-        changed={event => onChangeTaskHandler(event, task)}
+        changed={(event) => onChangeTaskHandler(event, task)}
         required
       />
       <Input
@@ -265,7 +279,7 @@ const ContactData = props => {
         label="Meeting time"
         elementConfig={appointmentTime.elementConfig}
         value={appointmentTime.value}
-        changed={event =>
+        changed={(event) =>
           onChangeAppointmentTimeHandler(event, appointmentTime)
         }
         required
@@ -283,7 +297,7 @@ const ContactData = props => {
         label="Any comments"
         elementConfig={message.elementConfig}
         value={message.value}
-        changed={event => onChangeMessageHandler(event, message)}
+        changed={(event) => onChangeMessageHandler(event, message)}
       />
       <div className="row">
         <Button
@@ -321,15 +335,26 @@ const ContactData = props => {
         {newAppointmentSummary}
       </Modal>
       <h2>Let's sit and talk</h2>
-      <p>
-        At Lu legal services, we offer 30 minutes consultation for free. We open
-        7 days a week from 9 a.m. to 6 p.m. You are welcome to book an
-        appointment through our online booking system below. Looking forward to
-        talk to you soon. Thanks!
-      </p>
-      {form}
+      {user ? (
+        <p>
+          At Lu legal services, we offer 30 minutes consultation for free. We
+          open 7 days a week from 9 a.m. to 6 p.m. You can book an appointment
+          through our online booking system below. Looking forward to talk to
+          you soon. Thanks!
+        </p>
+      ) : (
+        <p>
+          At Lu legal services, we offer 30 minutes consultation for free. We
+          open 7 days a week from 9 a.m. to 6 p.m. You can book an appointment
+          through our online booking system. However, you need register as our
+          memeber for free throught&nbsp;
+          <NavLink to="/register">Register</NavLink> in order to proceed.
+          Looking forward to talk to you soon. Thanks!
+        </p>
+      )}
+      {user && form}
     </section>
   );
 };
 
-export default withErrorHandler(ContactData, axios);
+export default ContactData;

@@ -10,34 +10,33 @@ import Spinner from '../UI/Spinner/Spinner';
 import errorHandler from '../../errorHandler';
 
 const LogInData = () => {
-
   const [email, setEmail] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'Your Email'
+      placeholder: 'Your Email',
     },
-    value: ''
+    value: '',
   });
 
   const [password, setPassword] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'password',
-      placeholder: 'Your Password'
+      placeholder: 'Your Password',
     },
-    value: ''
+    value: '',
   });
 
   const [rememberMe, setRememberMe] = useState(false);
   const [signInable, setSignInable] = useState(false);
 
-  const token = localStorage.getItem('token');
-  const loading = useSelector(state => state.user.loading);
-  const error = useSelector(state => state.user.error);
+  const token = localStorage.getItem('ls_user_jwt');
+  const loading = useSelector((state) => state.user.loading);
+  const error = useSelector((state) => state.user.error);
 
   const dispatch = useDispatch();
-  const onLoginUser = formData => dispatch(userActions.loginUser(formData));
+  const onLoginUser = (formData) => dispatch(userActions.loginUser(formData));
 
   useEffect(() => {
     const updateSignInableHandler = () => {
@@ -52,27 +51,27 @@ const LogInData = () => {
 
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setEmail(updatedFormElement);
   };
 
   const onChangePasswordHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setPassword(updatedFormElement);
   };
 
   const onChangeRememberMeHandler = () => {
-    setRememberMe(prevRememberMe => !prevRememberMe);
+    setRememberMe((prevRememberMe) => !prevRememberMe);
   };
 
-  const signInHandler = event => {
+  const signInHandler = (event) => {
     event.preventDefault();
     const signInData = {
       email: email.value,
-      password: password.value
+      password: password.value,
     };
 
     // Send to backend to Auth
@@ -86,7 +85,7 @@ const LogInData = () => {
         label="Email"
         elementConfig={email.elementConfig}
         value={email.value}
-        changed={event => onChangeEmailHandler(event, email)}
+        changed={(event) => onChangeEmailHandler(event, email)}
         required
       />
       <Input
@@ -94,7 +93,7 @@ const LogInData = () => {
         label="Password"
         elementConfig={password.elementConfig}
         value={password.value}
-        changed={event => onChangePasswordHandler(event, password)}
+        changed={(event) => onChangePasswordHandler(event, password)}
         minLength="7"
         required
       />
@@ -110,7 +109,7 @@ const LogInData = () => {
         please click on&nbsp;
         <NavLink to="/register">Register</NavLink>.
       </p>
-      {error && <div className="Error" >{errorHandler(error)}</div>}
+      {error && <div className="Error">{errorHandler(error)}</div>}
       {form}
       <div className="CustomRow">
         <div className="col-sm-6 CustomRow-Inner">

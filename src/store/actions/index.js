@@ -9,5 +9,6 @@ export {
   fetchUser,
   logoutUser,
   logoutUserAll,
-  loginUser
+  loginUser,
+  updateUserProfile
 } from './user';

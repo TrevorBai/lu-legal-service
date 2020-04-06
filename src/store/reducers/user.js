@@ -101,6 +101,25 @@ const loginUserFail = (state, action) => {
   });
 };
 
+const updateUserProfileStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const updateUserProfileSuccess = (state, action) => {
+  const updatedUser = { ...action.updatedProfile };
+  return updateObject(state, {
+    user: updatedUser,
+    loading: false,
+  });
+};
+
+const updateUserProfileFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.REGISTER_USER_START:
@@ -133,6 +152,12 @@ const userReducer = (state = initialState, action) => {
       return loginUserSuccess(state, action);
     case actionTypes.LOGIN_USER_FAIL:
       return loginUserFail(state, action);
+    case actionTypes.UPDATE_USER_PROFILE_START:
+      return updateUserProfileStart(state);
+    case actionTypes.UPDATE_USER_PROFILE_SUCCESS:
+      return updateUserProfileSuccess(state, action);
+    case actionTypes.UPDATE_USER_PROFILE_FAIL:
+      return updateUserProfileFail(state, action);
     default:
       return state;
   }

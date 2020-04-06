@@ -14,124 +14,141 @@ const SignUpData = () => {
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Your First Name'
+      placeholder: 'Your First Name',
     },
-    value: ''
+    value: '',
   });
 
   const [lastName, setLastName] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Your Last Name'
+      placeholder: 'Your Last Name',
     },
-    value: ''
+    value: '',
   });
 
   const [username, setUsername] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Your Username'
+      placeholder: 'Your Username',
     },
-    value: ''
+    value: '',
   });
 
   const [email, setEmail] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'Your Email'
+      placeholder: 'Your Email',
     },
-    value: ''
+    value: '',
   });
 
   const [password, setPassword] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'password',
-      placeholder: 'Your Password'
+      placeholder: 'Your Password',
     },
-    value: ''
+    value: '',
   });
 
   const [confirmedPassword, setConfirmedPassword] = useState({
     elementType: 'input',
     elementConfig: {
       type: 'password',
-      placeholder: 'Confirm Password'
+      placeholder: 'Confirm Password',
     },
-    value: ''
+    value: '',
   });
 
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [signUpable, setSignUpable] = useState(false);
 
-  const token = localStorage.getItem('token');
-  const loading = useSelector(state => state.user.loading);
-  const error = useSelector(state => state.user.error);
+  const token = localStorage.getItem('ls_user_jwt');
+  const loading = useSelector((state) => state.user.loading);
+  const error = useSelector((state) => state.user.error);
 
   const dispatch = useDispatch();
-  const onRegisterUser = formData => dispatch(userActions.registerUser(formData));
+  const onRegisterUser = (formData) =>
+    dispatch(userActions.registerUser(formData));
 
   useEffect(() => {
     const updateSignUpableHandler = () => {
-      if (firstName.value && lastName.value && username.value && email.value && password.value && confirmedPassword.value && agreeTerms) {
+      if (
+        firstName.value &&
+        lastName.value &&
+        username.value &&
+        email.value &&
+        password.value &&
+        confirmedPassword.value &&
+        agreeTerms
+      ) {
         setSignUpable(true);
       } else {
         setSignUpable(false);
       }
     };
     updateSignUpableHandler();
-  }, [firstName.value, lastName.value, username.value, email.value, password.value, confirmedPassword.value, agreeTerms]);
+  }, [
+    firstName.value,
+    lastName.value,
+    username.value,
+    email.value,
+    password.value,
+    confirmedPassword.value,
+    agreeTerms,
+  ]);
 
   const onChangeFirstNameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setFirstName(updatedFormElement);
   };
 
   const onChangeLastNameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setLastName(updatedFormElement);
   };
 
   const onChangeUsernameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setUsername(updatedFormElement);
   };
 
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setEmail(updatedFormElement);
   };
 
   const onChangePasswordHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setPassword(updatedFormElement);
   };
 
   const onChangeConfirmedPasswordHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
-      value: event.target.value
+      value: event.target.value,
     });
     setConfirmedPassword(updatedFormElement);
   };
 
   const onChangeAgreeTermsHandler = () => {
-    setAgreeTerms(prevAgreeTerms => !prevAgreeTerms);
+    setAgreeTerms((prevAgreeTerms) => !prevAgreeTerms);
   };
 
-  const signUpHandler = event => {
+  const signUpHandler = (event) => {
     event.preventDefault();
     const signUpData = {
       firstName: firstName.value,
@@ -139,64 +156,66 @@ const SignUpData = () => {
       username: username.value,
       email: email.value,
       password: password.value,
-      confirmedPassword: confirmedPassword.value
+      confirmedPassword: confirmedPassword.value,
     };
 
     onRegisterUser(signUpData);
   };
 
-  const form = <form className="SignUpDataForm">
-    <Input
-      elementType={firstName.elementType}
-      label="First name"
-      elementConfig={firstName.elementConfig}
-      value={firstName.value}
-      changed={event => onChangeFirstNameHandler(event, firstName)}
-      required
-    />
-    <Input
-      elementType={lastName.elementType}
-      label="Last name"
-      elementConfig={lastName.elementConfig}
-      value={lastName.value}
-      changed={event => onChangeLastNameHandler(event, lastName)}
-      required
-    />
-    <Input
-      elementType={username.elementType}
-      label="Username"
-      elementConfig={username.elementConfig}
-      value={username.value}
-      changed={event => onChangeUsernameHandler(event, username)}
-      required
-    />
-    <Input
-      elementType={email.elementType}
-      label="Email"
-      elementConfig={email.elementConfig}
-      value={email.value}
-      changed={event => onChangeEmailHandler(event, email)}
-      required
-    />
-    <Input
-      elementType={password.elementType}
-      label="Password"
-      elementConfig={password.elementConfig}
-      value={password.value}
-      changed={event => onChangePasswordHandler(event, password)}
-      minLength="6"
-      required
-    />
-    <Input
-      elementType={confirmedPassword.elementType}
-      label="Confirm Password"
-      elementConfig={confirmedPassword.elementConfig}
-      value={confirmedPassword.value}
-      changed={event => onChangeConfirmedPasswordHandler(event, confirmedPassword)}
-      minLength="6"
-      required
-    />
-  </form>
+  const form = (
+    <form className="SignUpDataForm">
+      <Input
+        elementType={firstName.elementType}
+        label="First name"
+        elementConfig={firstName.elementConfig}
+        value={firstName.value}
+        changed={(event) => onChangeFirstNameHandler(event, firstName)}
+        required
+      />
+      <Input
+        elementType={lastName.elementType}
+        label="Last name"
+        elementConfig={lastName.elementConfig}
+        value={lastName.value}
+        changed={(event) => onChangeLastNameHandler(event, lastName)}
+        required
+      />
+      <Input
+        elementType={username.elementType}
+        label="Username"
+        elementConfig={username.elementConfig}
+        value={username.value}
+        changed={(event) => onChangeUsernameHandler(event, username)}
+        required
+      />
+      <Input
+        elementType={email.elementType}
+        label="Email"
+        elementConfig={email.elementConfig}
+        value={email.value}
+        changed={(event) => onChangeEmailHandler(event, email)}
+        required
+      />
+      <Input
+        elementType={password.elementType}
+        label="Password"
+        elementConfig={password.elementConfig}
+        value={password.value}
+        changed={(event) => onChangePasswordHandler(event, password)}
+        required
+      />
+      <Input
+        elementType={confirmedPassword.elementType}
+        label="Confirm Password"
+        elementConfig={confirmedPassword.elementConfig}
+        value={confirmedPassword.value}
+        changed={(event) =>
+          onChangeConfirmedPasswordHandler(event, confirmedPassword)
+        }
+        required
+      />
+    </form>
+  );
 
   return (
     <section className="ContactDataForm">

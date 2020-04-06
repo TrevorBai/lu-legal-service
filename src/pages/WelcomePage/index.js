@@ -7,12 +7,14 @@ import * as userActions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const WelcomePage = () => {
-  const loading = useSelector(state => state.user.loading);
-  const user = useSelector(state => state.user.user);
-  const token = localStorage.getItem('token');
+  const loading = useSelector((state) => state.user.loading);
+  const user = useSelector((state) => state.user.user);
+  const token = localStorage.getItem('ls_user_jwt');
 
   const dispatch = useDispatch();
-  const onFetchUser = useCallback(() => dispatch(userActions.fetchUser()), [dispatch]);
+  const onFetchUser = useCallback(() => dispatch(userActions.fetchUser()), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     onFetchUser();

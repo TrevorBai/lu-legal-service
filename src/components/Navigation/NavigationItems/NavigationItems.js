@@ -5,10 +5,10 @@ import './NavigationItems.css';
 import CollapsableNavigationItem from './CollapsableNavigationItem/CollapsableNavigationItem';
 
 const NavigationItems = () => {
-  const stringifiedUser = localStorage.getItem('name');
+  const stringifiedUser = localStorage.getItem('ls_last_auth_information');
   const userName = JSON.parse(stringifiedUser);
 
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   return (
     <ul className="navbar-nav ml-auto d-flex">
@@ -22,12 +22,12 @@ const NavigationItems = () => {
           dropdownItems={[
             {
               name: 'New Appointment',
-              link: '/appointments'
+              link: '/appointments',
             },
             {
               name: 'Booked Appointments',
-              link: '/appointmentsBooked'
-            }
+              link: '/appointmentsBooked',
+            },
           ]}
         />
       ) : (
@@ -40,17 +40,19 @@ const NavigationItems = () => {
         <CollapsableNavigationItem
           isProfile="true"
           toLeft="true"
-          headerName={userName && userName.firstName.charAt() + userName.lastName.charAt()}
+          headerName={
+            userName && userName.firstName.charAt() + userName.lastName.charAt()
+          }
           headerLink="/profile"
           dropdownItems={[
             {
               name: 'Log Out',
-              link: '/logout'
+              link: '/logout',
             },
             {
               name: 'Log Out ALL',
-              link: '/logoutAll'
-            }
+              link: '/logoutAll',
+            },
           ]}
         />
       ) : (
@@ -60,8 +62,8 @@ const NavigationItems = () => {
           dropdownItems={[
             {
               name: 'Register',
-              link: '/register'
-            }
+              link: '/register',
+            },
           ]}
         />
       )}

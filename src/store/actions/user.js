@@ -7,12 +7,14 @@ export const registerUser = (formData) => {
     dispatch(registerUserStart());
     try {
       const response = await axios.post(path.REGISTER_USER, formData);
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('ls_user_jwt', response.data.token);
       localStorage.setItem(
-        'name',
+        'ls_last_auth_information',
         JSON.stringify({
           firstName: response.data.user.firstName,
           lastName: response.data.user.lastName,
+          username: response.data.user.username,
+          email: response.data.user.email,
         })
       );
       dispatch(registerUserSuccess(response.data));
@@ -53,14 +55,23 @@ export const fetchUser = () => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('ls_user_jwt');
       const response = await axios.get(path.FETCH_USER, {
         headers: { Authorization: token },
       });
+      localStorage.setItem(
+        'ls_last_auth_information',
+        JSON.stringify({
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          username: response.data.username,
+          email: response.data.email,
+        })
+      );
       dispatch(fetchUserSuccess(response.data));
     } catch (error) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
+      localStorage.removeItem('ls_user_jwt');
+      localStorage.removeItem('ls_last_auth_information');
       dispatch(fetchUserFail(error));
     }
   };
@@ -90,12 +101,12 @@ export const logoutUser = () => {
   return async (dispatch) => {
     dispatch(logoutUserStart());
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('ls_user_jwt');
       await axios.post(path.LOGOUT_USER, {
         headers: { Authorization: token },
       });
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
+      localStorage.removeItem('ls_user_jwt');
+      localStorage.removeItem('ls_last_auth_information');
       dispatch(logoutUserSuccess());
     } catch (error) {
       dispatch(logoutUserFail(error.response.data));
@@ -126,12 +137,12 @@ export const logoutUserAll = () => {
   return async (dispatch) => {
     dispatch(logoutUserAllStart());
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('ls_user_jwt');
       await axios.post(path.LOGOUT_USER_ALL, {
         headers: { Authorization: token },
       });
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
+      localStorage.removeItem('ls_user_jwt');
+      localStorage.removeItem('ls_last_auth_information');
       dispatch(logoutUserAllSuccess());
     } catch (error) {
       dispatch(logoutUserAllFail(error.response.data));
@@ -171,12 +182,14 @@ export const loginUser = (formData) => {
     dispatch(loginUserStart());
     try {
       const response = await axios.post(path.LOGIN_USER, formData);
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('ls_user_jwt', response.data.token);
       localStorage.setItem(
-        'name',
+        'ls_last_auth_information',
         JSON.stringify({
           firstName: response.data.user.firstName,
           lastName: response.data.user.lastName,
+          username: response.data.user.username,
+          email: response.data.user.email,
         })
       );
       dispatch(loginUserSuccess(response.data));
@@ -203,6 +216,41 @@ export const loginUserSuccess = (formData) => {
 export const loginUserFail = (error) => {
   return {
     type: actionTypes.LOGIN_USER_FAIL,
+    error,
+  };
+};
+
+export const updateUserProfile = (formData) => {
+  return async (dispatch) => {
+    dispatch(updateUserProfileStart());
+    try {
+      const token = localStorage.getItem('ls_user_jwt');
+      const response = await axios.patch(path.UPDATE_USER, formData, {
+        headers: { Authorization: token },
+      });
+      dispatch(updateUserProfileSuccess(response.data));
+    } catch (error) {
+      dispatch(updateUserProfileFail(error));
+    }
+  };
+};
+
+export const updateUserProfileStart = () => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE_START,
+  };
+};
+
+export const updateUserProfileSuccess = (updatedProfile) => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
+    updatedProfile,
+  };
+};
+
+export const updateUserProfileFail = (error) => {
+  return {
+    type: actionTypes.UPDATE_USER_PROFILE_FAIL,
     error,
   };
 };
