@@ -349,7 +349,8 @@ const ContactData = () => {
           through our online booking system. However, you need register as our
           memeber for free throught&nbsp;
           <NavLink to="/register">Register</NavLink> in order to proceed.
-          Looking forward to talk to you soon. Thanks!
+          Looking forward to talk to you soon. Thanks!<br /><br />
+          If you want directly calling us to book an appointment, pleace call <b>519-278-3224</b>.
         </p>
       )}
       {user && form}
