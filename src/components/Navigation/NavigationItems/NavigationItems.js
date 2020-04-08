@@ -60,6 +60,10 @@ const NavigationItems = () => {
               name: 'Log Out ALL',
               link: '/logoutAll',
             },
+            {
+              name: 'Close Account',
+              link: '/closeAccount',
+            },
           ]}
         />
       ) : (

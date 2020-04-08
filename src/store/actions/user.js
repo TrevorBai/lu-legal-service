@@ -3,6 +3,9 @@ import axios from 'axios';
 import * as path from '../../constants/api/urls';
 import Cookies from 'js-cookie';
 
+/**********************************************************
+ ********************** Register user **********************
+ **********************************************************/
 export const registerUser = (formData) => {
   return async (dispatch) => {
     dispatch(registerUserStart());
@@ -49,6 +52,9 @@ export const registerUserInit = () => {
   };
 };
 
+/**********************************************************
+ ********************** Fetch user *************************
+ **********************************************************/
 export const fetchUser = () => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
@@ -92,6 +98,9 @@ export const fetchUserFail = (error) => {
   };
 };
 
+/**********************************************************
+ ********************** Logout user ************************
+ **********************************************************/
 export const logoutUser = () => {
   return async (dispatch) => {
     dispatch(logoutUserStart());
@@ -128,6 +137,9 @@ export const logoutUserFail = (error) => {
   };
 };
 
+/**********************************************************
+ ***************** Logout user all *************************
+ **********************************************************/
 export const logoutUserAll = () => {
   return async (dispatch) => {
     dispatch(logoutUserAllStart());
@@ -164,6 +176,9 @@ export const logoutUserAllFail = (error) => {
   };
 };
 
+/**********************************************************
+ ********************** Auto logout ************************
+ **********************************************************/
 export const checkTokenTimeout = () => {
   return (dispatch) => {
     setTimeout(() => {
@@ -172,6 +187,9 @@ export const checkTokenTimeout = () => {
   };
 };
 
+/**********************************************************
+ ********************** Login user *************************
+ **********************************************************/
 export const loginUser = (formData) => {
   return async (dispatch) => {
     dispatch(loginUserStart());
@@ -212,6 +230,9 @@ export const loginUserFail = (error) => {
   };
 };
 
+/**********************************************************
+ ********************** Update user ************************
+ **********************************************************/
 export const updateUserProfile = (formData) => {
   return async (dispatch) => {
     dispatch(updateUserProfileStart());
@@ -244,5 +265,44 @@ export const updateUserProfileFail = (error) => {
   return {
     type: actionTypes.UPDATE_USER_PROFILE_FAIL,
     error,
+  };
+};
+
+/***********************************************************
+ ********************** Delete user ************************
+ **********************************************************/
+export const deleteUser = () => {
+  return async (dispatch) => {
+    dispatch(deleteUserStart());
+    try {
+      const token = Cookies.get('ls_user_jwt');
+      await axios.delete(path.DELETE_USER, {
+        headers: { Authorization: token },
+      });
+      Cookies.remove('ls_user_jwt');
+      Cookies.remove('ls_last_auth_information');
+      dispatch(deleteUserSuccess());
+    } catch (error) {
+      dispatch(deleteUserFail(error.response.data.error));
+    }
+  };
+};
+
+export const deleteUserStart = () => {
+  return {
+    type: actionTypes.DELETE_USER_START
+  };
+};
+
+export const deleteUserSuccess = () => {
+  return {
+    type: actionTypes.DELETE_USER_SUCCESS
+  };
+};
+
+export const deleteUserFail = (error) => {
+  return {
+    type: actionTypes.DELETE_USER_FAIL,
+    error
   };
 };

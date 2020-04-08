@@ -10,43 +10,51 @@ const App = () => {
       <Route path="/" exact component={HomePage} />
       <Route
         path="/appointments"
-        render={props => <lazyLoader.NewAppointment {...props} />}
+        render={(props) => <lazyLoader.NewAppointment {...props} />}
       />
       <Route
         path="/contact"
-        render={props => <lazyLoader.ContactUs {...props} />}
+        render={(props) => <lazyLoader.ContactUs {...props} />}
       />
       <Route
         path="/signIn"
-        render={props => <lazyLoader.SignInPage {...props} />}
+        render={(props) => <lazyLoader.SignInPage {...props} />}
       />
       <Route
         path="/passwordReset"
-        render={props => <lazyLoader.PasswordReset {...props} />}
+        render={(props) => <lazyLoader.PasswordReset {...props} />}
       />
       <Route
         path="/register"
-        render={props => <lazyLoader.RegisterPage {...props} />}
+        render={(props) => <lazyLoader.RegisterPage {...props} />}
       />
       <Route
         path="/welcome"
-        render={props => <lazyLoader.WelcomePage {...props} />}
+        render={(props) => <lazyLoader.WelcomePage {...props} />}
       />
       <Route
         path="/logout"
-        render={props => <lazyLoader.LogoutPage {...props} />}
+        render={(props) => <lazyLoader.LogoutPage {...props} />}
       />
       <Route
         path="/logoutAll"
-        render={props => <lazyLoader.LogoutAllPage {...props} />}
+        render={(props) => <lazyLoader.LogoutAllPage {...props} />}
       />
       <Route
         path="/editProfile"
-        render={props => <lazyLoader.EditProfilePage {...props} />}
+        render={(props) => <lazyLoader.EditProfilePage {...props} />}
       />
       <Route
         path="/profile"
-        render={props => <lazyLoader.ProfilePage {...props} />}
+        render={(props) => <lazyLoader.ProfilePage {...props} />}
+      />
+      <Route
+        path="/closeAccount"
+        render={(props) => <lazyLoader.CloseAccountPage {...props} />}
+      />
+      <Route
+        path="/goodbye"
+        render={(props) => <lazyLoader.GoodbyePage {...props} />}
       />
     </Switch>
   );

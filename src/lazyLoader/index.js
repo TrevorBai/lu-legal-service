@@ -39,3 +39,11 @@ export const EditProfilePage = lazy(() => {
 export const ProfilePage = lazy(() => {
   return import('../pages/ProfilePage');
 });
+
+export const CloseAccountPage = lazy(() => {
+  return import('../pages/CloseAccountPage');
+});
+
+export const GoodbyePage = lazy(() => {
+  return import('../pages/GoodbyePage');
+});

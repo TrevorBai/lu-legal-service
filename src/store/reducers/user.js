@@ -120,6 +120,24 @@ const updateUserProfileFail = (state, action) => {
   });
 };
 
+const deleteUserStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const deleteUserSuccess = (state) => {
+  return updateObject(state, {
+    user: null,
+    loading: false,
+  });
+};
+
+const deleteUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.REGISTER_USER_START:
@@ -158,6 +176,12 @@ const userReducer = (state = initialState, action) => {
       return updateUserProfileSuccess(state, action);
     case actionTypes.UPDATE_USER_PROFILE_FAIL:
       return updateUserProfileFail(state, action);
+    case actionTypes.DELETE_USER_START:
+      return deleteUserStart(state);
+    case actionTypes.DELETE_USER_SUCCESS:
+      return deleteUserSuccess(state);
+    case actionTypes.DELETE_USER_FAIL:
+      return deleteUserFail(state, action);
     default:
       return state;
   }

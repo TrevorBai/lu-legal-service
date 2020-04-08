@@ -10,5 +10,6 @@ export {
   logoutUser,
   logoutUserAll,
   loginUser,
-  updateUserProfile
+  updateUserProfile,
+  deleteUser
 } from './user';

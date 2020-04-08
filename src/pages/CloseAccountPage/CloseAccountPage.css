@@ -2,11 +2,8 @@
   margin: 3rem;
 }
 
-.container .Customrow {
-  margin: 2rem;
-  padding: 0 8rem;
-  display: flex;
-  justify-content: space-between;
+.container .btn-outline-danger {
+  margin: 2rem auto;
 }
 
 .container .col-sm-3 {
@@ -16,7 +13,6 @@
 
 .col-sm-9 {
   border: 1px solid #dedfe0;
-  padding-bottom: 2rem;
 }
 
 .col-sm-9 h2 {
@@ -27,6 +23,7 @@
 .col-sm-9 p {
   margin-top: 2rem;
   text-align: center;
+  padding: 0 2rem;
 }
 
 .ProfileIconBig {
