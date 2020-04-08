@@ -8,6 +8,7 @@ import Button from '../UI/Button/Button';
 import * as userActions from '../../store/actions/index';
 import Spinner from '../UI/Spinner/Spinner';
 import errorHandler from '../../errorHandler';
+import Cookies from 'js-cookie';
 
 const SignUpData = () => {
   const [firstName, setFirstName] = useState({
@@ -67,7 +68,7 @@ const SignUpData = () => {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [signUpable, setSignUpable] = useState(false);
 
-  const token = localStorage.getItem('ls_user_jwt');
+  const token = Cookies.get('ls_user_jwt');
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
 

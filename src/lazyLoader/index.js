@@ -32,6 +32,10 @@ export const LogoutAllPage = lazy(() => {
   return import('../pages/LogoutAllPage');
 });
 
+export const EditProfilePage = lazy(() => {
+  return import('../pages/EditProfilePage');
+});
+
 export const ProfilePage = lazy(() => {
   return import('../pages/ProfilePage');
 });

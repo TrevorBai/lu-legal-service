@@ -41,6 +41,10 @@ const App = () => {
         render={props => <lazyLoader.LogoutAllPage {...props} />}
       />
       <Route
+        path="/editProfile"
+        render={props => <lazyLoader.EditProfilePage {...props} />}
+      />
+      <Route
         path="/profile"
         render={props => <lazyLoader.ProfilePage {...props} />}
       />

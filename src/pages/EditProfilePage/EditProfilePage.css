@@ -2,13 +2,6 @@
   margin: 3rem;
 }
 
-.container .Customrow {
-  margin: 2rem;
-  padding: 0 8rem;
-  display: flex;
-  justify-content: space-between;
-}
-
 .container .col-sm-3 {
   box-shadow: 1px 1px #dedfe0 inset, 0 -1px #dedfe0 inset;
   min-height: 600px;
@@ -49,6 +42,31 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: 800;
+}
+
+.SignUpDataForm {
+  margin: 5% 10%;
+}
+
+.SignUpDataForm .row .col-sm-4 {
+  display: flex;
+  align-items: center;
+  padding-top: 0.2rem;
+}
+
+.SignUpDataForm .row .col-sm-8 input {
+  width: 100%;
+}
+
+.CustomRow {
+  display: flex;
+  justify-content: center;
+  margin: 4rem;
+}
+
+.CustomRow .btn {
+  padding: 1rem 1.5rem;
+  font-size: large;
 }
 
 @media (max-width: 767px) {

@@ -3,11 +3,10 @@ import NavigationItem from './NavigationItem/NavigationItem';
 import { useSelector } from 'react-redux';
 import './NavigationItems.css';
 import CollapsableNavigationItem from './CollapsableNavigationItem/CollapsableNavigationItem';
+import Cookies from 'js-cookie';
 
 const NavigationItems = () => {
-  const stringifiedUser = localStorage.getItem('ls_last_auth_information');
-  const userName = JSON.parse(stringifiedUser);
-
+  const authInfo = Cookies.getJSON('ls_last_auth_information');
   const user = useSelector((state) => state.user.user);
 
   return (
@@ -41,10 +40,18 @@ const NavigationItems = () => {
           isProfile="true"
           toLeft="true"
           headerName={
-            userName && userName.firstName.charAt() + userName.lastName.charAt()
+            authInfo && authInfo.firstName.charAt() + authInfo.lastName.charAt()
           }
-          headerLink="/profile"
+          headerLink="/editProfile"
           dropdownItems={[
+            {
+              name: 'Public Profile',
+              link: '/profile',
+            },
+            {
+              name: 'Edit Profile',
+              link: '/editProfile',
+            },
             {
               name: 'Log Out',
               link: '/logout',

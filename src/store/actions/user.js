@@ -1,22 +1,20 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as path from '../../constants/api/urls';
+import Cookies from 'js-cookie';
 
 export const registerUser = (formData) => {
   return async (dispatch) => {
     dispatch(registerUserStart());
     try {
       const response = await axios.post(path.REGISTER_USER, formData);
-      localStorage.setItem('ls_user_jwt', response.data.token);
-      localStorage.setItem(
-        'ls_last_auth_information',
-        JSON.stringify({
-          firstName: response.data.user.firstName,
-          lastName: response.data.user.lastName,
-          username: response.data.user.username,
-          email: response.data.user.email,
-        })
-      );
+      Cookies.set('ls_user_jwt', response.data.token);
+      Cookies.set('ls_last_auth_information', {
+        firstName: response.data.user.firstName,
+        lastName: response.data.user.lastName,
+        username: response.data.user.username,
+        email: response.data.user.email,
+      });
       dispatch(registerUserSuccess(response.data));
       dispatch(checkTokenTimeout());
     } catch (error) {
@@ -55,23 +53,20 @@ export const fetchUser = () => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
     try {
-      const token = localStorage.getItem('ls_user_jwt');
+      const token = Cookies.get('ls_user_jwt');
       const response = await axios.get(path.FETCH_USER, {
         headers: { Authorization: token },
       });
-      localStorage.setItem(
-        'ls_last_auth_information',
-        JSON.stringify({
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
-          username: response.data.username,
-          email: response.data.email,
-        })
-      );
+      Cookies.set('ls_last_auth_information', {
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        username: response.data.username,
+        email: response.data.email,
+      });
       dispatch(fetchUserSuccess(response.data));
     } catch (error) {
-      localStorage.removeItem('ls_user_jwt');
-      localStorage.removeItem('ls_last_auth_information');
+      Cookies.remove('ls_user_jwt');
+      Cookies.remove('ls_last_auth_information');
       dispatch(fetchUserFail(error));
     }
   };
@@ -101,12 +96,12 @@ export const logoutUser = () => {
   return async (dispatch) => {
     dispatch(logoutUserStart());
     try {
-      const token = localStorage.getItem('ls_user_jwt');
+      const token = Cookies.get('ls_user_jwt');
       await axios.post(path.LOGOUT_USER, {
         headers: { Authorization: token },
       });
-      localStorage.removeItem('ls_user_jwt');
-      localStorage.removeItem('ls_last_auth_information');
+      Cookies.remove('ls_user_jwt');
+      Cookies.remove('ls_last_auth_information');
       dispatch(logoutUserSuccess());
     } catch (error) {
       dispatch(logoutUserFail(error.response.data));
@@ -137,12 +132,12 @@ export const logoutUserAll = () => {
   return async (dispatch) => {
     dispatch(logoutUserAllStart());
     try {
-      const token = localStorage.getItem('ls_user_jwt');
+      const token = Cookies.get('ls_user_jwt');
       await axios.post(path.LOGOUT_USER_ALL, {
         headers: { Authorization: token },
       });
-      localStorage.removeItem('ls_user_jwt');
-      localStorage.removeItem('ls_last_auth_information');
+      Cookies.remove('ls_user_jwt');
+      Cookies.remove('ls_last_auth_information');
       dispatch(logoutUserAllSuccess());
     } catch (error) {
       dispatch(logoutUserAllFail(error.response.data));
@@ -182,16 +177,13 @@ export const loginUser = (formData) => {
     dispatch(loginUserStart());
     try {
       const response = await axios.post(path.LOGIN_USER, formData);
-      localStorage.setItem('ls_user_jwt', response.data.token);
-      localStorage.setItem(
-        'ls_last_auth_information',
-        JSON.stringify({
-          firstName: response.data.user.firstName,
-          lastName: response.data.user.lastName,
-          username: response.data.user.username,
-          email: response.data.user.email,
-        })
-      );
+      Cookies.set('ls_user_jwt', response.data.token);
+      Cookies.set('ls_last_auth_information', {
+        firstName: response.data.user.firstName,
+        lastName: response.data.user.lastName,
+        username: response.data.user.username,
+        email: response.data.user.email,
+      });
       dispatch(loginUserSuccess(response.data));
       dispatch(checkTokenTimeout());
     } catch (error) {
@@ -224,7 +216,7 @@ export const updateUserProfile = (formData) => {
   return async (dispatch) => {
     dispatch(updateUserProfileStart());
     try {
-      const token = localStorage.getItem('ls_user_jwt');
+      const token = Cookies.get('ls_user_jwt');
       const response = await axios.patch(path.UPDATE_USER, formData, {
         headers: { Authorization: token },
       });

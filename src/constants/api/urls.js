@@ -12,3 +12,4 @@ export const LOGOUT_USER = API_URL + 'users/logout';
 export const LOGOUT_USER_ALL = API_URL + 'users/logoutAll';
 export const LOGIN_USER = API_URL + 'users/login';
 export const UPDATE_USER = API_URL + 'users/me';
+export const DELETE_USER = API_URL + 'users/me';

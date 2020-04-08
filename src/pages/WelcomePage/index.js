@@ -5,11 +5,12 @@ import { Redirect } from 'react-router-dom';
 import './WelcomePage.css';
 import * as userActions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Cookies from 'js-cookie';
 
 const WelcomePage = () => {
   const loading = useSelector((state) => state.user.loading);
   const user = useSelector((state) => state.user.user);
-  const token = localStorage.getItem('ls_user_jwt');
+  const token = Cookies.get('ls_user_jwt');
 
   const dispatch = useDispatch();
   const onFetchUser = useCallback(() => dispatch(userActions.fetchUser()), [
