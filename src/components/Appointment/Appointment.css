@@ -1,0 +1,17 @@
+.Appointment {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.Appointment .row {
+  padding: 1rem;
+}
+
+.Appointment p {
+  margin: 0;
+  margin-right: 2rem;
+}

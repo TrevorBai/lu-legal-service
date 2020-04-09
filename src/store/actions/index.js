@@ -2,7 +2,8 @@ export {
   openModal,
   closeModal,
   bookAppointment,
-  bookAppointmentInit
+  fetchAppointments,
+  fetchAppointmentById
 } from './appointment';
 export {
   registerUser,

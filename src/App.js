@@ -10,11 +10,11 @@ const App = () => {
       <Route path="/" exact component={HomePage} />
       <Route
         path="/appointments"
-        render={(props) => <lazyLoader.NewAppointment {...props} />}
+        render={(props) => <lazyLoader.NewAppointmentPage {...props} />}
       />
       <Route
         path="/contact"
-        render={(props) => <lazyLoader.ContactUs {...props} />}
+        render={(props) => <lazyLoader.ContactUsPage {...props} />}
       />
       <Route
         path="/signIn"
@@ -22,7 +22,7 @@ const App = () => {
       />
       <Route
         path="/passwordReset"
-        render={(props) => <lazyLoader.PasswordReset {...props} />}
+        render={(props) => <lazyLoader.PasswordResetPage {...props} />}
       />
       <Route
         path="/register"
@@ -55,6 +55,20 @@ const App = () => {
       <Route
         path="/goodbye"
         render={(props) => <lazyLoader.GoodbyePage {...props} />}
+      />
+      <Route
+        path="/appointmentConfirmed"
+        render={(props) => (
+          <lazyLoader.AppointmentConfirmationPage {...props} />
+        )}
+      />
+      <Route
+        path="/bookedAppointments"
+        render={(props) => <lazyLoader.BookedAppointmentsPage {...props} />}
+      />
+      <Route
+        path="/editAppointment"
+        render={(props) => <lazyLoader.EditAppointmentPage {...props} />}
       />
     </Switch>
   );

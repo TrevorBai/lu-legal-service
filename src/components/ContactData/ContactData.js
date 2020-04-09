@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import './ContactData.css';
@@ -13,24 +13,6 @@ import * as actions from '../../store/actions';
 import { updateObject } from '../../shared/utility';
 
 const ContactData = () => {
-  const [username, setUsername] = useState({
-    elementType: 'input',
-    elementConfig: {
-      type: 'text',
-      placeholder: 'Your Name',
-    },
-    value: '',
-  });
-
-  const [email, setEmail] = useState({
-    elementType: 'input',
-    elementConfig: {
-      type: 'email',
-      placeholder: 'Your Email',
-    },
-    value: '',
-  });
-
   const [task, setTask] = useState({
     elementType: 'select',
     elementConfig: {
@@ -156,32 +138,22 @@ const ContactData = () => {
     dispatch(actions.bookAppointment(formData));
   const onOpenModal = () => dispatch(actions.openModal());
   const onCloseModal = () => dispatch(actions.closeModal());
-  const onFetchUser = useCallback(() => dispatch(actions.fetchUser()), [
-    dispatch,
-  ]);
+
+  useEffect(() => {
+    const onFetchUser = () => dispatch(actions.fetchUser());
+    onFetchUser();
+  }, [dispatch]);
 
   useEffect(() => {
     const updateBookableHandler = () => {
-      if (
-        username.value &&
-        email.value &&
-        task.value &&
-        appointmentTime.value
-      ) {
+      if (task.value && appointmentTime.value) {
         setBookable(true);
       } else {
         setBookable(false);
       }
     };
     updateBookableHandler();
-    onFetchUser();
-  }, [
-    username.value,
-    email.value,
-    task.value,
-    appointmentTime.value,
-    onFetchUser,
-  ]);
+  }, [task.value, appointmentTime.value]);
 
   const compoundDateFormat =
     date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
@@ -189,8 +161,6 @@ const ContactData = () => {
   const appointmentHandler = async (event) => {
     event.preventDefault();
     const formData = {
-      username: username.value,
-      email: email.value,
       task: task.value,
       appointmentTime: appointmentTime.value,
       date: compoundDateFormat,
@@ -198,20 +168,6 @@ const ContactData = () => {
     };
 
     onBookAppointment(formData);
-  };
-
-  const onChangeUsernameHandler = (event, input) => {
-    const updatedFormElement = updateObject(input, {
-      value: event.target.value,
-    });
-    setUsername(updatedFormElement);
-  };
-
-  const onChangeEmailHandler = (event, input) => {
-    const updatedFormElement = updateObject(input, {
-      value: event.target.value,
-    });
-    setEmail(updatedFormElement);
   };
 
   const onChangeTaskHandler = (event, input) => {
@@ -250,22 +206,6 @@ const ContactData = () => {
 
   const form = (
     <form className="ContactDataForm">
-      <Input
-        elementType={username.elementType}
-        label="Name"
-        elementConfig={username.elementConfig}
-        value={username.value}
-        changed={(event) => onChangeUsernameHandler(event, username)}
-        required
-      />
-      <Input
-        elementType={email.elementType}
-        label="Email"
-        elementConfig={email.elementConfig}
-        value={email.value}
-        changed={(event) => onChangeEmailHandler(event, email)}
-        required
-      />
       <Input
         elementType={task.elementType}
         label="Category"
@@ -313,7 +253,7 @@ const ContactData = () => {
 
   let newAppointmentSummary = (
     <NewAppointmentSummary
-      username={username.value}
+      username={user && user.username}
       task={task.value}
       appointmentTime={appointmentTime.value}
       date={compoundDateFormat}
@@ -326,7 +266,7 @@ const ContactData = () => {
     newAppointmentSummary = <Spinner />;
   }
 
-  const bookedRedirect = booked && <Redirect to="/" />;
+  const bookedRedirect = booked && <Redirect to="/appointmentConfirmed" />;
 
   return (
     <section className="ContactData">
@@ -349,8 +289,11 @@ const ContactData = () => {
           through our online booking system. However, you need register as our
           memeber for free throught&nbsp;
           <NavLink to="/register">Register</NavLink> in order to proceed.
-          Looking forward to talk to you soon. Thanks!<br /><br />
-          If you want directly calling us to book an appointment, pleace call <b>519-278-3224</b>.
+          Looking forward to talk to you soon. Thanks!
+          <br />
+          <br />
+          If you want directly calling us to book an appointment, pleace call{' '}
+          <b>519-278-3224</b>.
         </p>
       )}
       {user && form}

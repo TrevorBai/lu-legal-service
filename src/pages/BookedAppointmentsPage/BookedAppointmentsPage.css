@@ -1,0 +1,12 @@
+.BookedAppointments {
+  margin: 5% 10%;
+}
+
+.BookedAppointments h2 {
+  text-align: center;
+}
+
+.BookedAppointments p {
+  margin: 0 5% 10%;
+  text-align: center;
+}

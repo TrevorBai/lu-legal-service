@@ -25,7 +25,7 @@ const NavigationItems = () => {
             },
             {
               name: 'Booked Appointments',
-              link: '/appointmentsBooked',
+              link: '/bookedAppointments',
             },
           ]}
         />

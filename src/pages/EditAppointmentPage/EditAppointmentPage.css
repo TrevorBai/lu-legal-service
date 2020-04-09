@@ -1,0 +1,12 @@
+.EditAppointment {
+  margin: 5% 10%;
+}
+
+.EditAppointment h2 {
+  text-align: center;
+}
+
+.EditAppointment p {
+  margin: 0 5% 10%;
+  text-align: center;
+}

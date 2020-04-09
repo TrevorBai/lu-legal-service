@@ -28,7 +28,7 @@ const LogoutAllPage = () => {
 
   return (
     <div>
-      <SubBanner title={'Log Out'} />
+      <SubBanner title={'Log Out All'} />
       <section className="ContactDataForm">
         {loading && <Spinner />}
         {!user && logoutMessage}

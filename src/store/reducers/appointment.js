@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
+  newAppointment: null,
   appointments: [],
   loading: false,
   booking: false,
@@ -17,16 +18,15 @@ const closeModal = state => {
 };
 
 const bookAppointmentStart = state => {
-  return updateObject(state, { loading: true });
+  return updateObject(state, { loading: true, booking: true });
 };
 
 const bookAppointmentSuccess = (state, action) => {
-  const newAppointment = { ...action.formData };
   return updateObject(state, {
-    appointments: state.appointments.concat(newAppointment),
+    newAppointment: action.formData,
     loading: false,
     booking: false,
-    booked: true
+    booked: true,
   });
 };
 
@@ -37,8 +37,38 @@ const bookAppointmentFail = state => {
   });
 };
 
-const bookAppointmentInit = state => {
-  return updateObject(state, { booked: false });
+const fetchAppointmentsStart = (state) => {
+  return updateObject(state, { loading: true, booked: false });
+};
+
+const fetchAppointmentsSuccess = (state, action) => {
+  return updateObject(state, {
+    appointments: action.appointmentArray,
+    loading: false,
+  });
+};
+
+const fetchAppointmentsFail = (state) => {
+  return updateObject(state, {
+    loading: false,
+  });
+};
+
+const fetchAppointmentByIdStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const fetchAppointmentByIdSuccess = (state, action) => {
+  return updateObject(state, {
+    newAppointment: action.appointment,
+    loading: false,
+  });
+};
+
+const fetchAppointmentByIdFail = (state) => {
+  return updateObject(state, {
+    loading: false,
+  });
 };
 
 const appointmentReducer = (state = initialState, action) => {
@@ -53,8 +83,18 @@ const appointmentReducer = (state = initialState, action) => {
       return bookAppointmentSuccess(state, action);
     case actionTypes.BOOK_APPOINTMENT_FAIL:
       return bookAppointmentFail(state);
-    case actionTypes.BOOK_APPOINTMENT_INIT:
-      return bookAppointmentInit(state);
+    case actionTypes.FETCH_APPOINTMENTS_START:
+      return fetchAppointmentsStart(state);
+    case actionTypes.FETCH_APPOINTMENTS_SUCCESS:
+      return fetchAppointmentsSuccess(state, action);
+    case actionTypes.FETCH_APPOINTMENTS_FAIL:
+      return fetchAppointmentsFail(state);
+    case actionTypes.FETCH_APPOINTMENT_BY_ID_START:
+      return fetchAppointmentByIdStart(state);
+    case actionTypes.FETCH_APPOINTMENT_BY_ID_SUCCESS:
+      return fetchAppointmentByIdSuccess(state, action);
+    case actionTypes.FETCH_APPOINTMENT_BY_ID_FAIL:
+      return fetchAppointmentByIdFail(state);
     default:
       return state;
   }

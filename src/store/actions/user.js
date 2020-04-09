@@ -53,6 +53,49 @@ export const registerUserInit = () => {
 };
 
 /**********************************************************
+ ********************** Login user *************************
+ **********************************************************/
+export const loginUser = (formData) => {
+  return async (dispatch) => {
+    dispatch(loginUserStart());
+    try {
+      const response = await axios.post(path.LOGIN_USER, formData);
+      Cookies.set('ls_user_jwt', response.data.token);
+      Cookies.set('ls_last_auth_information', {
+        firstName: response.data.user.firstName,
+        lastName: response.data.user.lastName,
+        username: response.data.user.username,
+        email: response.data.user.email,
+      });
+      dispatch(loginUserSuccess(response.data));
+      dispatch(checkTokenTimeout());
+    } catch (error) {
+      dispatch(loginUserFail(error.response.data.error));
+    }
+  };
+};
+
+export const loginUserStart = () => {
+  return {
+    type: actionTypes.LOGIN_USER_START,
+  };
+};
+
+export const loginUserSuccess = (formData) => {
+  return {
+    type: actionTypes.LOGIN_USER_SUCCESS,
+    formData,
+  };
+};
+
+export const loginUserFail = (error) => {
+  return {
+    type: actionTypes.LOGIN_USER_FAIL,
+    error,
+  };
+};
+
+/**********************************************************
  ********************** Fetch user *************************
  **********************************************************/
 export const fetchUser = () => {
@@ -106,7 +149,7 @@ export const logoutUser = () => {
     dispatch(logoutUserStart());
     try {
       const token = Cookies.get('ls_user_jwt');
-      await axios.post(path.LOGOUT_USER, {
+      await axios.post(path.LOGOUT_USER, {}, {
         headers: { Authorization: token },
       });
       Cookies.remove('ls_user_jwt');
@@ -145,7 +188,7 @@ export const logoutUserAll = () => {
     dispatch(logoutUserAllStart());
     try {
       const token = Cookies.get('ls_user_jwt');
-      await axios.post(path.LOGOUT_USER_ALL, {
+      await axios.post(path.LOGOUT_USER_ALL, {}, {
         headers: { Authorization: token },
       });
       Cookies.remove('ls_user_jwt');
@@ -184,49 +227,6 @@ export const checkTokenTimeout = () => {
     setTimeout(() => {
       dispatch(logoutUser());
     }, 3600 * 1000);
-  };
-};
-
-/**********************************************************
- ********************** Login user *************************
- **********************************************************/
-export const loginUser = (formData) => {
-  return async (dispatch) => {
-    dispatch(loginUserStart());
-    try {
-      const response = await axios.post(path.LOGIN_USER, formData);
-      Cookies.set('ls_user_jwt', response.data.token);
-      Cookies.set('ls_last_auth_information', {
-        firstName: response.data.user.firstName,
-        lastName: response.data.user.lastName,
-        username: response.data.user.username,
-        email: response.data.user.email,
-      });
-      dispatch(loginUserSuccess(response.data));
-      dispatch(checkTokenTimeout());
-    } catch (error) {
-      dispatch(loginUserFail(error.response.data.error));
-    }
-  };
-};
-
-export const loginUserStart = () => {
-  return {
-    type: actionTypes.LOGIN_USER_START,
-  };
-};
-
-export const loginUserSuccess = (formData) => {
-  return {
-    type: actionTypes.LOGIN_USER_SUCCESS,
-    formData,
-  };
-};
-
-export const loginUserFail = (error) => {
-  return {
-    type: actionTypes.LOGIN_USER_FAIL,
-    error,
   };
 };
 

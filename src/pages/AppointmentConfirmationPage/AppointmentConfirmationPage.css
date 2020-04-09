@@ -1,0 +1,12 @@
+.AppointmentConfirmed {
+  margin: 5% 10%;
+}
+
+.AppointmentConfirmed h2 {
+  text-align: center;
+}
+
+.AppointmentConfirmed p {
+  margin: 0 5% 10%;
+  text-align: center;
+}

@@ -1,10 +1,10 @@
 import { lazy } from 'react';
 
-export const NewAppointment = lazy(() => {
+export const NewAppointmentPage = lazy(() => {
   return import('../pages/NewAppointmentPage');
 });
 
-export const ContactUs = lazy(() => {
+export const ContactUsPage = lazy(() => {
   return import('../pages/ContactUsPage');
 });
 
@@ -16,7 +16,7 @@ export const RegisterPage = lazy(() => {
   return import('../pages/RegisterPage');
 });
 
-export const PasswordReset = lazy(() => {
+export const PasswordResetPage = lazy(() => {
   return import('../pages/PasswordResetPage');
 });
 
@@ -46,4 +46,16 @@ export const CloseAccountPage = lazy(() => {
 
 export const GoodbyePage = lazy(() => {
   return import('../pages/GoodbyePage');
+});
+
+export const AppointmentConfirmationPage = lazy(() => {
+  return import('../pages/AppointmentConfirmationPage');
+});
+
+export const BookedAppointmentsPage = lazy(() => {
+  return import('../pages/BookedAppointmentsPage');
+});
+
+export const EditAppointmentPage = lazy(() => {
+  return import('../pages/EditAppointmentPage');
 });
