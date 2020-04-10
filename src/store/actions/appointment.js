@@ -105,8 +105,15 @@ export const fetchAppointmentById = (appointmentId) => {
           headers: { Authorization: token },
         }
       );
+      // Cookies.set('ls_prev_appointment_information', {
+      //   task: response.data.task,
+      //   appointmentTime: response.data.appointmentTime,
+      //   date: response.data.date,
+      //   message: response.data.message,
+      // });
       dispatch(fetchAppointmentByIdSuccess(response.data));
     } catch (error) {
+      // Cookies.remove('ls_prev_appointment_information');
       dispatch(fetchAppointmentByIdFail(error));
     }
   };

@@ -158,12 +158,12 @@ const ContactData = () => {
   const compoundDateFormat =
     date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
 
-  const appointmentHandler = async (event) => {
+  const appointmentHandler = (event) => {
     event.preventDefault();
     const formData = {
       task: task.value,
       appointmentTime: appointmentTime.value,
-      date: compoundDateFormat,
+      date,
       message: message.value,
     };
 

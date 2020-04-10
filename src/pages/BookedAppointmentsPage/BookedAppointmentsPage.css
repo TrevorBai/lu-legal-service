@@ -10,3 +10,9 @@
   margin: 0 5% 10%;
   text-align: center;
 }
+
+.NoHistory {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2rem;
+}

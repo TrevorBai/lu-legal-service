@@ -11,6 +11,10 @@
   padding: 1rem;
 }
 
+.Appointment .row p {
+  text-align: left;
+}
+
 .Appointment p {
   margin: 0;
   margin-right: 2rem;

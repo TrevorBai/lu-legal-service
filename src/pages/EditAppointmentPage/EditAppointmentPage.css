@@ -10,3 +10,16 @@
   margin: 0 5% 10%;
   text-align: center;
 }
+
+.ContactDataForm {
+  padding: 0 6rem;
+}
+
+.ContactDataForm .col-sm-8 .react-datepicker-wrapper {
+  width: 100%;
+}
+
+.ContactDataForm .btn {
+  margin: 5% auto;
+  padding: .8rem 1.5rem;
+}

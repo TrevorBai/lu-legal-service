@@ -1,6 +1,7 @@
 import React from 'react';
 import './Appointment.css';
 import Button from '../UI/Button/Button';
+import { datePostProcessor } from '../../shared/utility';
 
 const Appointment = (props) => {
   const { task, appointmentTime, date, message, appointmentId } = props;
@@ -8,7 +9,13 @@ const Appointment = (props) => {
   const modifyAppointmentHandler = () => {
     props.history.push({
       pathname: '/editAppointment',
-      state: { id: appointmentId },
+      state: {
+        id: appointmentId,
+        task,
+        appointmentTime,
+        date,
+        message,
+      },
     });
   };
   const deleteAppointmentHandler = () => {};
@@ -29,15 +36,17 @@ const Appointment = (props) => {
         <div className="row">
           <p>
             <strong>Meet Date: </strong>
-            {date}
+            {datePostProcessor(date)}
           </p>
-          {message && (
+        </div>
+        {message && (
+          <div className="row">
             <p>
               <strong>Message: </strong>
               {message}
             </p>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <div className="RightContainer col-sm-4">
         <Button className="btn btn-primary" clicked={modifyAppointmentHandler}>

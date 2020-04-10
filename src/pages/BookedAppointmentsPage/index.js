@@ -10,7 +10,6 @@ const BookedAppointmentsPage = (props) => {
   const loading = useSelector((state) => state.appointment.loading);
 
   const appointments = useSelector((state) => state.appointment.appointments);
-  console.log('appointments', appointments);
 
   const dispatch = useDispatch();
 
@@ -26,7 +25,9 @@ const BookedAppointmentsPage = (props) => {
       <h2>All appointments</h2>
       <div>
         <p>A history of what you have booked is shown below.</p>
-        {appointments.map((appointment) => (
+        {!appointments.length ? (
+          <p className="NoHistory">Sorry, you currently don't have any appointments.</p>
+        ) : (appointments.map((appointment) => (
           <Appointment
             {...props}
             appointmentId={appointment._id}
@@ -36,7 +37,8 @@ const BookedAppointmentsPage = (props) => {
             date={appointment.date}
             message={appointment.message}
           />
-        ))}
+        )))
+      }
       </div>
     </div>
   );
