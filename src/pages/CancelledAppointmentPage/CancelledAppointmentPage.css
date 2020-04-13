@@ -1,0 +1,16 @@
+.CancelledAppointment {
+  margin: 5% 10%;
+}
+
+.CancelledAppointment h2 {
+  text-align: center;
+}
+
+.CancelledAppointment p {
+  margin: 0 5% 5%;
+  text-align: center;
+}
+
+.CancelledAppointment .btn-outline-danger {
+  margin: 2rem auto;
+}

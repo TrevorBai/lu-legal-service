@@ -10,7 +10,6 @@ const BookedAppointmentsPage = (props) => {
   const loading = useSelector((state) => state.appointment.loading);
 
   const appointments = useSelector((state) => state.appointment.appointments);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

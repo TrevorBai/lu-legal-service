@@ -70,6 +70,10 @@ const App = () => {
         path="/editAppointment"
         render={(props) => <lazyLoader.EditAppointmentPage {...props} />}
       />
+      <Route
+        path="/cancelAppointment"
+        render={(props) => <lazyLoader.CancelledAppointmentPage {...props} />}
+      />
     </Switch>
   );
 
