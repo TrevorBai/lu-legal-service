@@ -3,7 +3,9 @@ export {
   closeModal,
   bookAppointment,
   fetchAppointments,
-  fetchAppointmentById
+  fetchAppointmentById,
+  updateAppointmentById,
+  deleteAppointmentById,
 } from './appointment';
 export {
   registerUser,

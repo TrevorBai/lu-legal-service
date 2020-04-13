@@ -1,8 +1,8 @@
 import React from 'react';
-import './NewAppointmentSummary.css';
+import './AppointmentSummary.css';
 import Button from '../UI/Button/Button';
 
-const NewAppointmentSummary = (props) => {
+const AppointmentSummary = (props) => {
   return (
     <section className="NewAppointmentSummary">
       <h3>Your Appointment</h3>
@@ -41,4 +41,4 @@ const NewAppointmentSummary = (props) => {
   );
 };
 
-export default NewAppointmentSummary;
+export default AppointmentSummary;

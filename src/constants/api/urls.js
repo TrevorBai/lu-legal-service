@@ -19,3 +19,5 @@ export const DELETE_USER = API_URL + 'users/me';
  */
 export const BOOK_APPOINTMENT = API_URL + 'appointments';
 export const FETCH_APPOINTMENT = API_URL + 'appointments';
+export const UPDATE_APPOINTMENT = API_URL + 'appointments';
+export const DELETE_APPOINTMENT = API_URL + 'appointments';

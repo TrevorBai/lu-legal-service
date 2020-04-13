@@ -138,3 +138,87 @@ export const fetchAppointmentByIdFail = (error) => {
     error,
   };
 };
+
+/***********************************************************
+ ***************** Update appointment by id *****************
+ **********************************************************/
+export const updateAppointmentById = (appointmentId, formData) => {
+  return async (dispatch) => {
+    dispatch(updateAppointmentByIdStart());
+    try {
+      const token = Cookies.get('ls_user_jwt');
+      const response = await axios.patch(
+        `${path.UPDATE_APPOINTMENT}/${appointmentId}`,
+        formData,
+        {
+          headers: { Authorization: token },
+        }
+      );
+      dispatch(updateAppointmentByIdSuccess(response.data));
+    } catch (error) {
+      dispatch(updateAppointmentByIdFail(error));
+    }
+  };
+};
+
+export const updateAppointmentByIdStart = () => {
+  return {
+    type: actionTypes.UPDATE_APPOINTMENT_BY_ID_START,
+  };
+};
+
+export const updateAppointmentByIdSuccess = (updatedAppointment) => {
+  return {
+    type: actionTypes.UPDATE_APPOINTMENT_BY_ID_SUCCESS,
+    updatedAppointment,
+  };
+};
+
+export const updateAppointmentByIdFail = (error) => {
+  return {
+    type: actionTypes.UPDATE_APPOINTMENT_BY_ID_FAIL,
+    error,
+  };
+};
+
+/***********************************************************
+ ***************** Delete appointment by id *****************
+ **********************************************************/
+export const deleteAppointmentById = (appointmentId) => {
+  return async (dispatch) => {
+    dispatch(deleteAppointmentByIdStart());
+    try {
+      const token = Cookies.get('ls_user_jwt');
+      const response = await axios.delete(
+        `${path.DELETE_APPOINTMENT}/${appointmentId}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
+      console.log('response.data :', response.data);
+      // dispatch(deleteAppointmentByIdSuccess(response.data));
+    } catch (error) {
+      dispatch(deleteAppointmentByIdFail(error));
+    }
+  };
+};
+
+export const deleteAppointmentByIdStart = () => {
+  return {
+    type: actionTypes.DELETE_APPOINTMENT_BY_ID_START,
+  };
+};
+
+export const deleteAppointmentByIdSuccess = (appointment) => {
+  return {
+    type: actionTypes.DELETE_APPOINTMENT_BY_ID_SUCCESS,
+    appointment,
+  };
+};
+
+export const deleteAppointmentByIdFail = (error) => {
+  return {
+    type: actionTypes.DELETE_APPOINTMENT_BY_ID_FAIL,
+    error,
+  };
+};

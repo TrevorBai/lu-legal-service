@@ -1,10 +1,23 @@
 import React from 'react';
 import './Appointment.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index';
 import Button from '../UI/Button/Button';
 import { datePostProcessor } from '../../shared/utility';
+import Modal from '../../components/UI/Modal/Modal';
+import AppointmentSummary from '../../components/AppointmentSummary/AppointmentSummary';
+import Spinner from '../UI/Spinner/Spinner';
 
 const Appointment = (props) => {
   const { task, appointmentTime, date, message, appointmentId } = props;
+
+  const loading = useSelector((state) => state.appointment.loading);
+  const booking = useSelector((state) => state.appointment.booking);
+  const user = useSelector((state) => state.user.user);
+
+  const dispatch = useDispatch();
+  const onOpenModal = () => dispatch(actions.openModal());
+  const onCloseModal = () => dispatch(actions.closeModal());
 
   const modifyAppointmentHandler = () => {
     props.history.push({
@@ -18,10 +31,39 @@ const Appointment = (props) => {
       },
     });
   };
-  const deleteAppointmentHandler = () => {};
+
+  const deleteAppointmentHandler = () => {
+    // event.preventDefault();
+    console.log('Trevor');
+    onOpenModal();
+  };
+
+  const cancelAnAppointmentHandler = () => {
+    onCloseModal();
+  };
+
+  const appointmentHandler = () => {};
+
+  let cancelledAppointmentSummary = (
+    <AppointmentSummary
+      username={user && user.username}
+      task={task}
+      appointmentTime={appointmentTime}
+      date={date}
+      message={message}
+      appointmentCancelled={cancelAnAppointmentHandler}
+      appointmentContinued={appointmentHandler}
+    />
+  );
+  if (loading) {
+    cancelledAppointmentSummary = <Spinner />;
+  }
 
   return (
     <div className="Appointment">
+      <Modal show={booking} modalClosed={cancelAnAppointmentHandler}>
+        {cancelledAppointmentSummary}
+      </Modal>
       <div className="LeftContainer col-sm-8">
         <div className="row">
           <p>

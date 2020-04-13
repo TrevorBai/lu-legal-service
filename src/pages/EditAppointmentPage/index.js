@@ -17,10 +17,10 @@ const EditAppointmentPage = (props) => {
     message: props.location.state.message,
   };
 
-  // const fetchedAppointment = useSelector(
-  //   (state) => state.appointment.newAppointment,
-  //   shallowEqual
-  // );
+  const fetchedAppointment = useSelector(
+    (state) => state.appointment.newAppointment,
+    shallowEqual
+  );
 
   const [task, setTask] = useState({
     elementType: 'select',
@@ -136,6 +136,8 @@ const EditAppointmentPage = (props) => {
   });
 
   const dispatch = useDispatch();
+  const onUpdateAppointmentById = (appointmentId, formData) =>
+    dispatch(actions.updateAppointmentById(appointmentId, formData));
 
   useEffect(() => {
     const onFetchUser = () => dispatch(actions.fetchUser());
@@ -175,7 +177,8 @@ const EditAppointmentPage = (props) => {
       date,
       message: message.value,
     };
-    console.log('updatedAppointment :', updatedAppointment);
+    onUpdateAppointmentById(appointmentInfo.id, updatedAppointment);
+    if (fetchedAppointment) props.history.push('/appointmentConfirmed');
   };
 
   const form = (

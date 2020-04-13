@@ -26,19 +26,22 @@ const BookedAppointmentsPage = (props) => {
       <div>
         <p>A history of what you have booked is shown below.</p>
         {!appointments.length ? (
-          <p className="NoHistory">Sorry, you currently don't have any appointments.</p>
-        ) : (appointments.map((appointment) => (
-          <Appointment
-            {...props}
-            appointmentId={appointment._id}
-            key={appointment._id}
-            task={appointment.task}
-            appointmentTime={appointment.appointmentTime}
-            date={appointment.date}
-            message={appointment.message}
-          />
-        )))
-      }
+          <p className="NoHistory">
+            Sorry, you currently don't have any appointments.
+          </p>
+        ) : (
+          appointments.map((appointment) => (
+            <Appointment
+              {...props}
+              appointmentId={appointment._id}
+              key={appointment._id}
+              task={appointment.task}
+              appointmentTime={appointment.appointmentTime}
+              date={appointment.date}
+              message={appointment.message}
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
-import NewAppointmentSummary from '../NewAppointmentSummary/NewAppointmentSummary';
+import AppointmentSummary from '../AppointmentSummary/AppointmentSummary';
 import Spinner from '../UI/Spinner/Spinner';
 import * as actions from '../../store/actions';
 import { updateObject } from '../../shared/utility';
@@ -252,7 +252,7 @@ const ContactData = () => {
   );
 
   let newAppointmentSummary = (
-    <NewAppointmentSummary
+    <AppointmentSummary
       username={user && user.username}
       task={task.value}
       appointmentTime={appointmentTime.value}
