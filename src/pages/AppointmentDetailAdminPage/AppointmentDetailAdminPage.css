@@ -1,0 +1,26 @@
+.Container {
+  margin: 5% 10%;
+}
+
+.Container h2 {
+  text-align: center;
+}
+
+.Container p {
+  margin: 0 5% 5%;
+  text-align: center;
+}
+
+.CustomRow {
+  display: flex;
+  justify-content: center;
+  margin: 4rem;
+}
+
+.AppointmentDetails {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}

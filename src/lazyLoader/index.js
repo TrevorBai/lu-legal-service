@@ -63,3 +63,7 @@ export const EditAppointmentPage = lazy(() => {
 export const CancelledAppointmentPage = lazy(() => {
   return import('../pages/CancelledAppointmentPage');
 });
+
+export const AppointmentDetailAdminPage = lazy(() => {
+  return import('../pages/AppointmentDetailAdminPage');
+});

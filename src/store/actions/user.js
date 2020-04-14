@@ -142,6 +142,44 @@ export const fetchUserFail = (error) => {
 };
 
 /**********************************************************
+ ******************* Fetch user by id**********************
+ **********************************************************/
+export const fetchUserById = (userId) => {
+  return async (dispatch) => {
+    dispatch(fetchUserByIdStart());
+    try {
+      const token = Cookies.get('ls_user_jwt');
+      const response = await axios.get(`${path.FETCH_USER_BY_ID}/${userId}`, {
+        headers: { Authorization: token },
+      });
+      dispatch(fetchUserByIdSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchUserByIdFail(error));
+    }
+  };
+};
+
+export const fetchUserByIdStart = () => {
+  return {
+    type: actionTypes.FETCH_USER_BY_ID_START,
+  };
+};
+
+export const fetchUserByIdSuccess = (userData) => {
+  return {
+    type: actionTypes.FETCH_USER_BY_ID_SUCCESS,
+    userData,
+  };
+};
+
+export const fetchUserByIdFail = (error) => {
+  return {
+    type: actionTypes.FETCH_USER_BY_ID_FAIL,
+    error,
+  };
+};
+
+/**********************************************************
  ********************** Logout user ************************
  **********************************************************/
 export const logoutUser = () => {

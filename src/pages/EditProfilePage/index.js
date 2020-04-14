@@ -12,8 +12,6 @@ import Cookies from 'js-cookie';
 const ProfilePage = (props) => {
   const authInfo = Cookies.getJSON('ls_last_auth_information');
 
-  // const user = useSelector((state) => state.user.user);
-
   const [firstName, setFirstName] = useState({
     elementType: 'input',
     elementConfig: {

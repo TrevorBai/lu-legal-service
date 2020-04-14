@@ -14,5 +14,6 @@ export {
   logoutUserAll,
   loginUser,
   updateUserProfile,
-  deleteUser
+  deleteUser,
+  fetchUserById
 } from './user';

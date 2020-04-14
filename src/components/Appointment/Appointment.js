@@ -4,7 +4,15 @@ import Button from '../UI/Button/Button';
 import { datePostProcessor } from '../../shared/utility';
 
 const Appointment = (props) => {
-  const { task, appointmentTime, date, message, appointmentId } = props;
+  const {
+    task,
+    appointmentTime,
+    date,
+    message,
+    appointmentId,
+    isAdmin,
+    owner
+  } = props;
 
   const modifyAppointmentHandler = () => {
     props.history.push({
@@ -28,6 +36,20 @@ const Appointment = (props) => {
         appointmentTime,
         date,
         message,
+      },
+    });
+  };
+
+  const fetchOwnerHandler = () => {
+    props.history.push({
+      pathname: '/appointmentDetailAdmin',
+      state: {
+        id: appointmentId,
+        task,
+        appointmentTime,
+        date,
+        message,
+        owner
       },
     });
   };
@@ -61,15 +83,29 @@ const Appointment = (props) => {
         )}
       </div>
       <div className="RightContainer col-sm-4">
-        <Button className="btn btn-primary" clicked={modifyAppointmentHandler}>
-          Reschedule
-        </Button>
-        <Button
-          className="btn btn-outline-danger"
-          clicked={deleteAppointmentHandler}
-        >
-          Delete
-        </Button>
+        {isAdmin ? (
+          <Button
+            className="btn btn-primary"
+            clicked={fetchOwnerHandler}
+          >
+            Details
+          </Button>
+        ) : (
+          <div>
+            <Button
+              className="btn btn-primary"
+              clicked={modifyAppointmentHandler}
+            >
+              Reschedule
+            </Button>
+            <Button
+              className="btn btn-outline-danger"
+              clicked={deleteAppointmentHandler}
+            >
+              Delete
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
