@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SubBanner from '../../components/Banner/SubBanner/SubBanner';
 import './PasswordResetPage.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../../store/actions/index';
 import Input from '../../components/UI/Input/Input';
 import { updateObject } from '../../shared/utility';
 import Button from '../../components/UI/Button/Button';
+import errorHandler from '../../errorHandler';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState({
@@ -16,6 +19,10 @@ const PasswordReset = () => {
   });
 
   const [sendable, setSendable] = useState(false);
+  const error = useSelector((state) => state.user.error);
+  const dispatch = useDispatch();
+  const onPasswordReset = (email) =>
+    dispatch(userActions.passwordReset(email));
 
   useEffect(() => {
     const updateSendableHandler = () => {
@@ -40,11 +47,8 @@ const PasswordReset = () => {
     const emailData = {
       email: email.value,
     };
-
-    // Send to backend to Auth
-    console.log('emailData :', emailData);
+    onPasswordReset(emailData);
   };
-
   return (
     <section>
       <SubBanner title={'Password Reset'} />
@@ -52,6 +56,7 @@ const PasswordReset = () => {
         <h2>Welcome back!</h2>
         <p>Enter your email and we send you a password reset link.</p>
       </div>
+      {error && <div className="Error">{errorHandler(error)}</div>}
       <div className="ContactDataForm">
         <Input
           elementType={email.elementType}

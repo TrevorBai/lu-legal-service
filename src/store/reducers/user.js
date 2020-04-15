@@ -4,10 +4,10 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   user: null,
   loading: false,
-  error: null
+  error: null,
 };
 
-const registerUserStart = state => {
+const registerUserStart = (state) => {
   return updateObject(state, { loading: true });
 };
 
@@ -15,95 +15,18 @@ const registerUserSuccess = (state, action) => {
   const newUser = { ...action.formData.user };
   return updateObject(state, {
     user: newUser,
-    loading: false
+    loading: false,
   });
 };
 
 const registerUserFail = (state, action) => {
   return updateObject(state, {
     loading: false,
-    error: action.error
-  });
-};
-
-const fetchUserStart = state => {
-  return updateObject(state, { 
-    loading: true
-  });
-};
-
-const fetchUserSuccess = (state, action) => {
-  const fetchedUser = { ...action.userData };
-  return updateObject(state, {
-    user: fetchedUser,
-    loading: false
-  });
-};
-
-const fetchUserFail = (state, action) => {
-  return updateObject(state, {
-    loading: false,
     error: action.error,
-    user: null
   });
 };
 
-const fetchUserByIdStart = state => {
-  return updateObject(state, { loading: true });
-};
-
-const fetchUserByIdSuccess = (state, action) => {
-  return updateObject(state, {
-    user: action.userData,
-    loading: false
-  });
-};
-
-const fetchUserByIdFail = (state, action) => {
-  return updateObject(state, {
-    loading: false,
-    error: action.error,
-    user: null
-  });
-};
-
-const logoutUserStart = state => {
-  return updateObject(state, { loading: true });
-};
-
-const logoutUserSuccess = state => {
-  return updateObject(state, {
-    user: null,
-    loading: false
-  });
-};
-
-const logoutUserFail = (state, action) => {
-  return updateObject(state, {
-    loading: false,
-    error: action.error
-  });
-};
-
-const logoutUserAllStart = state => {
-  return updateObject(state, { loading: true });
-};
-
-const logoutUserAllSuccess = state => {
-  return updateObject(state, {
-    user: null,
-    loading: false
-  });
-};
-
-const logoutUserAllFail = (state, action) => {
-  return updateObject(state, {
-    loading: false,
-    error: action.error
-  });
-};
-
-const loginUserStart = state => {
+const loginUserStart = (state) => {
   return updateObject(state, { loading: true });
 };
 
@@ -111,16 +34,111 @@ const loginUserSuccess = (state, action) => {
   const fetchedUser = { ...action.formData.user };
   return updateObject(state, {
     user: fetchedUser,
-    loading: false
+    loading: false,
   });
 };
 
 const loginUserFail = (state, action) => {
   return updateObject(state, {
     loading: false,
-    error: action.error
+    error: action.error,
   });
 };
+
+const passwordResetStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const passwordResetSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+  });
+};
+
+const passwordResetFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
+const fetchUserStart = (state) => {
+  return updateObject(state, {
+    loading: true,
+  });
+};
+
+const fetchUserSuccess = (state, action) => {
+  const fetchedUser = { ...action.userData };
+  return updateObject(state, {
+    user: fetchedUser,
+    loading: false,
+  });
+};
+
+const fetchUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+    user: null,
+  });
+};
+
+const fetchUserByIdStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const fetchUserByIdSuccess = (state, action) => {
+  return updateObject(state, {
+    user: action.userData,
+    loading: false,
+  });
+};
+
+const fetchUserByIdFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+    user: null,
+  });
+};
+
+const logoutUserStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const logoutUserSuccess = (state) => {
+  return updateObject(state, {
+    user: null,
+    loading: false,
+  });
+};
+
+const logoutUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
+const logoutUserAllStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const logoutUserAllSuccess = (state) => {
+  return updateObject(state, {
+    user: null,
+    loading: false,
+  });
+};
+
+const logoutUserAllFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
 
 const updateUserProfileStart = (state) => {
   return updateObject(state, { loading: true });
@@ -167,6 +185,18 @@ const userReducer = (state = initialState, action) => {
       return registerUserSuccess(state, action);
     case actionTypes.REGISTER_USER_FAIL:
       return registerUserFail(state, action);
+    case actionTypes.LOGIN_USER_START:
+      return loginUserStart(state);
+    case actionTypes.LOGIN_USER_SUCCESS:
+      return loginUserSuccess(state, action);
+    case actionTypes.LOGIN_USER_FAIL:
+      return loginUserFail(state, action);
+    case actionTypes.PASSWORD_RESET_START:
+      return passwordResetStart(state);
+    case actionTypes.PASSWORD_RESET_SUCCESS:
+      return passwordResetSuccess(state, action);
+    case actionTypes.PASSWORD_RESET_FAIL:
+      return passwordResetFail(state, action);
     case actionTypes.FETCH_USER_START:
       return fetchUserStart(state);
     case actionTypes.FETCH_USER_SUCCESS:
@@ -191,12 +221,6 @@ const userReducer = (state = initialState, action) => {
       return logoutUserAllSuccess(state);
     case actionTypes.LOGOUT_USER_ALL_FAIL:
       return logoutUserAllFail(state, action);
-    case actionTypes.LOGIN_USER_START:
-      return loginUserStart(state);
-    case actionTypes.LOGIN_USER_SUCCESS:
-      return loginUserSuccess(state, action);
-    case actionTypes.LOGIN_USER_FAIL:
-      return loginUserFail(state, action);
     case actionTypes.UPDATE_USER_PROFILE_START:
       return updateUserProfileStart(state);
     case actionTypes.UPDATE_USER_PROFILE_SUCCESS:
