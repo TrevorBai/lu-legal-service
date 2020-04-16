@@ -35,6 +35,14 @@ const PasswordReset = () => {
     updateSendableHandler();
   }, [email.value]);
 
+  // Clean up error state at redux when unmounting
+  useEffect(() => {
+    const onResetUserError = () => dispatch(userActions.resetUserError());
+    return () => {
+      onResetUserError();
+    };
+  }, [dispatch]);
+
   const onChangeEmailHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
       value: event.target.value,

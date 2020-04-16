@@ -103,6 +103,14 @@ const SignUpData = () => {
     agreeTerms,
   ]);
 
+  // Clean up error state at redux when unmounting
+  useEffect(() => {
+    const onResetUserError = () => dispatch(userActions.resetUserError());
+    return () => {
+      onResetUserError();
+    };
+  }, [dispatch]);
+
   const onChangeFirstNameHandler = (event, input) => {
     const updatedFormElement = updateObject(input, {
       value: event.target.value,

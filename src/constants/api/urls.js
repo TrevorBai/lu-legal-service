@@ -13,6 +13,7 @@ export const LOGOUT_USER = API_URL + 'users/logout';
 export const LOGOUT_USER_ALL = API_URL + 'users/logoutAll';
 export const LOGIN_USER = API_URL + 'users/login';
 export const UPDATE_USER = API_URL + 'users/me';
+export const UPDATE_USER_PASSWORD = API_URL + 'users/me/updatePassword';
 export const DELETE_USER = API_URL + 'users/me';
 export const PASSWORD_RESET = API_URL + 'users/passwordReset';
 

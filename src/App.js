@@ -78,6 +78,14 @@ const App = () => {
         path="/appointmentDetailAdmin"
         render={(props) => <lazyLoader.AppointmentDetailAdminPage {...props} />}
       />
+      <Route
+        path="/passwordModify"
+        render={(props) => <lazyLoader.ModifyPasswordPage {...props} />}
+      />
+      <Route
+        path="/passwordModifyConfirmed"
+        render={(props) => <lazyLoader.PasswordModifyConfirmationPage {...props} />}
+      />
     </Switch>
   );
 

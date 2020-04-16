@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as path from '../../constants/api/urls';
 import Cookies from 'js-cookie';
-import { act } from 'react-test-renderer';
 
 /**********************************************************
  ********************** Register user **********************
@@ -349,6 +348,44 @@ export const updateUserProfileFail = (error) => {
   };
 };
 
+/**********************************************************
+ ***************** Update user password *******************
+ **********************************************************/
+export const updateUserPassword = (formData) => {
+  return async (dispatch) => {
+    dispatch(updateUserPasswordStart());
+    try {
+      const token = Cookies.get('ls_user_jwt');
+      await axios.patch(path.UPDATE_USER_PASSWORD, formData, {
+        headers: { Authorization: token },
+      });
+      dispatch(updateUserPasswordSuccess());
+      dispatch(logoutUserAll());
+    } catch (error) {
+      dispatch(updateUserPasswordFail(error.response.data.error));
+    }
+  };
+};
+
+export const updateUserPasswordStart = () => {
+  return {
+    type: actionTypes.UPDATE_USER_PASSWORD_START,
+  };
+};
+
+export const updateUserPasswordSuccess = () => {
+  return {
+    type: actionTypes.UPDATE_USER_PASSWORD_SUCCESS,
+  };
+};
+
+export const updateUserPasswordFail = (error) => {
+  return {
+    type: actionTypes.UPDATE_USER_PASSWORD_FAIL,
+    error,
+  };
+};
+
 /***********************************************************
  ********************** Delete user ************************
  **********************************************************/
@@ -387,3 +424,12 @@ export const deleteUserFail = (error) => {
     error,
   };
 };
+
+/**********************************************************
+ ******************* User Error reset *********************
+ **********************************************************/
+export const resetUserError = () => {
+  return {
+    type: actionTypes.RESET_USER_ERROR
+  };
+}

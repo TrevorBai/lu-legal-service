@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SubBanner from '../../components/Banner/SubBanner/SubBanner';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as userActions from '../../store/actions/index';
 import './EditProfilePage.css';
@@ -8,8 +8,9 @@ import Input from '../../components/UI/Input/Input';
 import { updateObject } from '../../shared/utility';
 import Button from '../../components/UI/Button/Button';
 import Cookies from 'js-cookie';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
-const ProfilePage = (props) => {
+const EditProfilePage = (props) => {
   const authInfo = Cookies.getJSON('ls_last_auth_information');
 
   const [firstName, setFirstName] = useState({
@@ -48,7 +49,7 @@ const ProfilePage = (props) => {
     value: (authInfo && authInfo.email) || '',
   });
 
-  // const loading = useSelector((state) => state.user.loading);
+  const loading = useSelector((state) => state.user.loading);
 
   const token = Cookies.get('ls_user_jwt');
 
@@ -202,7 +203,7 @@ const ProfilePage = (props) => {
               >
                 Save
               </Button>
-              {/* {loading && <Spinner />} */}
+              {loading && <Spinner />}
             </div>
           </div>
         </div>
@@ -211,4 +212,4 @@ const ProfilePage = (props) => {
   );
 };
 
-export default ProfilePage;
+export default EditProfilePage;

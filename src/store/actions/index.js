@@ -16,5 +16,7 @@ export {
   updateUserProfile,
   deleteUser,
   fetchUserById,
-  passwordReset
+  passwordReset,
+  resetUserError,
+  updateUserPassword
 } from './user';

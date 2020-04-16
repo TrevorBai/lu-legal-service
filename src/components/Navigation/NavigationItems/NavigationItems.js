@@ -53,6 +53,10 @@ const NavigationItems = () => {
               link: '/editProfile',
             },
             {
+              name: 'Change Password',
+              link: '/passwordModify',
+            },
+            {
               name: 'Log Out',
               link: '/logout',
             },

@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
+  updateSuccess: false
 };
 
 const registerUserStart = (state) => {
@@ -139,7 +140,6 @@ const logoutUserAllFail = (state, action) => {
   });
 };
 
-
 const updateUserProfileStart = (state) => {
   return updateObject(state, { loading: true });
 };
@@ -153,6 +153,24 @@ const updateUserProfileSuccess = (state, action) => {
 };
 
 const updateUserProfileFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
+const updateUserPasswordStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const updateUserPasswordSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    updateSuccess: true
+  });
+};
+
+const updateUserPasswordFail = (state, action) => {
   return updateObject(state, {
     loading: false,
     error: action.error,
@@ -174,6 +192,12 @@ const deleteUserFail = (state, action) => {
   return updateObject(state, {
     loading: false,
     error: action.error,
+  });
+};
+
+const resetUserError = (state, action) => {
+  return updateObject(state, {
+    error: null
   });
 };
 
@@ -227,12 +251,20 @@ const userReducer = (state = initialState, action) => {
       return updateUserProfileSuccess(state, action);
     case actionTypes.UPDATE_USER_PROFILE_FAIL:
       return updateUserProfileFail(state, action);
+    case actionTypes.UPDATE_USER_PASSWORD_START:
+      return updateUserPasswordStart(state);
+    case actionTypes.UPDATE_USER_PASSWORD_SUCCESS:
+      return updateUserPasswordSuccess(state, action);
+    case actionTypes.UPDATE_USER_PASSWORD_FAIL:
+      return updateUserPasswordFail(state, action);
     case actionTypes.DELETE_USER_START:
       return deleteUserStart(state);
     case actionTypes.DELETE_USER_SUCCESS:
       return deleteUserSuccess(state);
     case actionTypes.DELETE_USER_FAIL:
       return deleteUserFail(state, action);
+    case actionTypes.RESET_USER_ERROR:
+      return resetUserError(state, action);
     default:
       return state;
   }
