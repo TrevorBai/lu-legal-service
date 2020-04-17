@@ -26,29 +26,23 @@ export const registerUser = (formData) => {
   };
 };
 
-export const registerUserStart = () => {
+const registerUserStart = () => {
   return {
     type: actionTypes.REGISTER_USER_START,
   };
 };
 
-export const registerUserSuccess = (formData) => {
+const registerUserSuccess = (formData) => {
   return {
     type: actionTypes.REGISTER_USER_SUCCESS,
     formData,
   };
 };
 
-export const registerUserFail = (error) => {
+const registerUserFail = (error) => {
   return {
     type: actionTypes.REGISTER_USER_FAIL,
     error,
-  };
-};
-
-export const registerUserInit = () => {
-  return {
-    type: actionTypes.REGISTER_USER_INIT,
   };
 };
 
@@ -60,13 +54,27 @@ export const loginUser = (formData) => {
     dispatch(loginUserStart());
     try {
       const response = await axios.post(path.LOGIN_USER, formData);
-      Cookies.set('ls_user_jwt', response.data.token);
-      Cookies.set('ls_last_auth_information', {
-        firstName: response.data.user.firstName,
-        lastName: response.data.user.lastName,
-        username: response.data.user.username,
-        email: response.data.user.email,
-      });
+      if (formData.expiration) {
+        Cookies.set('ls_user_jwt', response.data.token, { expires: 2 });
+        Cookies.set(
+          'ls_last_auth_information',
+          {
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName,
+            username: response.data.user.username,
+            email: response.data.user.email,
+          },
+          { expires: 2 }
+        );
+      } else {
+        Cookies.set('ls_user_jwt', response.data.token);
+        Cookies.set('ls_last_auth_information', {
+          firstName: response.data.user.firstName,
+          lastName: response.data.user.lastName,
+          username: response.data.user.username,
+          email: response.data.user.email,
+        });
+      }
       dispatch(loginUserSuccess(response.data));
       dispatch(checkTokenTimeout());
     } catch (error) {
@@ -75,20 +83,20 @@ export const loginUser = (formData) => {
   };
 };
 
-export const loginUserStart = () => {
+const loginUserStart = () => {
   return {
     type: actionTypes.LOGIN_USER_START,
   };
 };
 
-export const loginUserSuccess = (formData) => {
+const loginUserSuccess = (formData) => {
   return {
     type: actionTypes.LOGIN_USER_SUCCESS,
     formData,
   };
 };
 
-export const loginUserFail = (error) => {
+const loginUserFail = (error) => {
   return {
     type: actionTypes.LOGIN_USER_FAIL,
     error,
@@ -112,20 +120,20 @@ export const passwordReset = (email) => {
 
 const passwordResetStart = () => {
   return {
-    type: actionTypes.PASSWORD_RESET_START
+    type: actionTypes.PASSWORD_RESET_START,
   };
 };
 
 const passwordResetSuccess = () => {
   return {
-    type: actionTypes.PASSWORD_RESET_SUCCESS
+    type: actionTypes.PASSWORD_RESET_SUCCESS,
   };
 };
 
 const passwordResetFail = (error) => {
   return {
     type: actionTypes.PASSWORD_RESET_FAIL,
-    error
+    error,
   };
 };
 
@@ -155,20 +163,20 @@ export const fetchUser = () => {
   };
 };
 
-export const fetchUserStart = () => {
+const fetchUserStart = () => {
   return {
     type: actionTypes.FETCH_USER_START,
   };
 };
 
-export const fetchUserSuccess = (userData) => {
+const fetchUserSuccess = (userData) => {
   return {
     type: actionTypes.FETCH_USER_SUCCESS,
     userData,
   };
 };
 
-export const fetchUserFail = (error) => {
+const fetchUserFail = (error) => {
   return {
     type: actionTypes.FETCH_USER_FAIL,
     error,
@@ -193,20 +201,20 @@ export const fetchUserById = (userId) => {
   };
 };
 
-export const fetchUserByIdStart = () => {
+const fetchUserByIdStart = () => {
   return {
     type: actionTypes.FETCH_USER_BY_ID_START,
   };
 };
 
-export const fetchUserByIdSuccess = (userData) => {
+const fetchUserByIdSuccess = (userData) => {
   return {
     type: actionTypes.FETCH_USER_BY_ID_SUCCESS,
     userData,
   };
 };
 
-export const fetchUserByIdFail = (error) => {
+const fetchUserByIdFail = (error) => {
   return {
     type: actionTypes.FETCH_USER_BY_ID_FAIL,
     error,
@@ -237,19 +245,19 @@ export const logoutUser = () => {
   };
 };
 
-export const logoutUserStart = () => {
+const logoutUserStart = () => {
   return {
     type: actionTypes.LOGOUT_USER_START,
   };
 };
 
-export const logoutUserSuccess = () => {
+const logoutUserSuccess = () => {
   return {
     type: actionTypes.LOGOUT_USER_SUCCESS,
   };
 };
 
-export const logoutUserFail = (error) => {
+const logoutUserFail = (error) => {
   return {
     type: actionTypes.LOGOUT_USER_FAIL,
     error,
@@ -280,19 +288,19 @@ export const logoutUserAll = () => {
   };
 };
 
-export const logoutUserAllStart = () => {
+const logoutUserAllStart = () => {
   return {
     type: actionTypes.LOGOUT_USER_ALL_START,
   };
 };
 
-export const logoutUserAllSuccess = () => {
+const logoutUserAllSuccess = () => {
   return {
     type: actionTypes.LOGOUT_USER_ALL_SUCCESS,
   };
 };
 
-export const logoutUserAllFail = (error) => {
+const logoutUserAllFail = (error) => {
   return {
     type: actionTypes.LOGOUT_USER_ALL_FAIL,
     error,
@@ -328,20 +336,20 @@ export const updateUserProfile = (formData) => {
   };
 };
 
-export const updateUserProfileStart = () => {
+const updateUserProfileStart = () => {
   return {
     type: actionTypes.UPDATE_USER_PROFILE_START,
   };
 };
 
-export const updateUserProfileSuccess = (updatedProfile) => {
+const updateUserProfileSuccess = (updatedProfile) => {
   return {
     type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
     updatedProfile,
   };
 };
 
-export const updateUserProfileFail = (error) => {
+const updateUserProfileFail = (error) => {
   return {
     type: actionTypes.UPDATE_USER_PROFILE_FAIL,
     error,
@@ -367,19 +375,19 @@ export const updateUserPassword = (formData) => {
   };
 };
 
-export const updateUserPasswordStart = () => {
+const updateUserPasswordStart = () => {
   return {
     type: actionTypes.UPDATE_USER_PASSWORD_START,
   };
 };
 
-export const updateUserPasswordSuccess = () => {
+const updateUserPasswordSuccess = () => {
   return {
     type: actionTypes.UPDATE_USER_PASSWORD_SUCCESS,
   };
 };
 
-export const updateUserPasswordFail = (error) => {
+const updateUserPasswordFail = (error) => {
   return {
     type: actionTypes.UPDATE_USER_PASSWORD_FAIL,
     error,
@@ -406,19 +414,19 @@ export const deleteUser = () => {
   };
 };
 
-export const deleteUserStart = () => {
+const deleteUserStart = () => {
   return {
     type: actionTypes.DELETE_USER_START,
   };
 };
 
-export const deleteUserSuccess = () => {
+const deleteUserSuccess = () => {
   return {
     type: actionTypes.DELETE_USER_SUCCESS,
   };
 };
 
-export const deleteUserFail = (error) => {
+const deleteUserFail = (error) => {
   return {
     type: actionTypes.DELETE_USER_FAIL,
     error,
@@ -430,6 +438,6 @@ export const deleteUserFail = (error) => {
  **********************************************************/
 export const resetUserError = () => {
   return {
-    type: actionTypes.RESET_USER_ERROR
+    type: actionTypes.RESET_USER_ERROR,
   };
-}
+};

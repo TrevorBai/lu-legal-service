@@ -81,9 +81,9 @@ const LogInData = () => {
     const signInData = {
       email: email.value,
       password: password.value,
+      expiration: rememberMe
     };
 
-    // Send to backend to Auth
     onLoginUser(signInData);
   };
 

@@ -59,7 +59,8 @@ const EditProfilePage = (props) => {
 
   useEffect(() => {
     // This is only for checking if the token is still valid
-    const onFetchUser = () => dispatch(userActions.fetchUser());
+    const onFetchUser = () =>
+      dispatch(userActions.fetchUser());
     onFetchUser();
 
     // This is a tricky part. The goal is after fetching the user data, populate

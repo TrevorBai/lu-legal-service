@@ -37,7 +37,7 @@ const BookedAppointmentsPage = (props) => {
           appointments.map((appointment) => (
             <Appointment
               {...props}
-              isAdmin={user.isAdmin}
+              isAdmin={user && user.isAdmin}
               appointmentId={appointment._id}
               key={appointment._id}
               task={appointment.task}

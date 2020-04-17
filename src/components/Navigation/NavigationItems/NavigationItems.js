@@ -7,14 +7,15 @@ import Cookies from 'js-cookie';
 
 const NavigationItems = () => {
   const authInfo = Cookies.getJSON('ls_last_auth_information');
-  const user = useSelector((state) => state.user.user);
+  // Utilize loading state change to re-render the navbar
+  const loading = useSelector((state) => state.user.loading);
 
   return (
     <ul className="navbar-nav ml-auto d-flex">
       <NavigationItem link="/" exact>
         Home
       </NavigationItem>
-      {user ? (
+      {(authInfo && !loading) ? (
         <CollapsableNavigationItem
           headerName="Appointments"
           headerLink="/appointments"
@@ -35,7 +36,7 @@ const NavigationItems = () => {
         </NavigationItem>
       )}
       <NavigationItem link="/contact">Contact</NavigationItem>
-      {user ? (
+      {authInfo ? (
         <CollapsableNavigationItem
           isProfile="true"
           toLeft="true"
