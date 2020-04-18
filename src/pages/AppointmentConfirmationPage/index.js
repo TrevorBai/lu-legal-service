@@ -29,7 +29,7 @@ const AppointmentConfirmationPage = () => {
         Your appointment at&nbsp;
         <b>
           {newAppointment && newAppointment.appointmentTime},&nbsp;
-          {newAppointment && datePostProcessor(newAppointment.date)}&nbsp;
+          {newAppointment && datePostProcessor(new Date(newAppointment.date).toString())}&nbsp;
         </b>
         regarding <b>{newAppointment && newAppointment.task}</b> has been
         booked. We look forward to seeing you. You can view all your

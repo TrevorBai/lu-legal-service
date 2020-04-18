@@ -4,7 +4,7 @@ import Button from '../UI/Button/Button';
 import { datePostProcessor } from '../../shared/utility';
 
 const Appointment = (props) => {
-  const {
+  let {
     task,
     appointmentTime,
     date,
@@ -13,6 +13,9 @@ const Appointment = (props) => {
     isAdmin,
     owner
   } = props;
+
+  // Server uses UTC, on client side, convert back to local time zome (eg. GMT -04:00)
+  date = new Date(date).toString();
 
   const modifyAppointmentHandler = () => {
     props.history.push({
