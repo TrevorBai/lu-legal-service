@@ -6,7 +6,8 @@ const initialState = {
   appointments: [],
   loading: false,
   booking: false,
-  booked: false
+  booked: false,
+  bookedAppointmentDateAndTime: []
 };
 
 const openModal = state => {
@@ -106,6 +107,23 @@ const deleteAppointmentByIdFail = (state) => {
   });
 };
 
+const fetchBookedAppointmentsDateAndTimeStart = (state) => {
+  return updateObject(state, { loading: true });
+};
+
+const fetchBookedAppointmentsDateAndTimeSuccess = (state, action) => {
+  return updateObject(state, {
+    bookedAppointmentDateAndTime: action.bookedAppointmentDateAndTimeArray,
+    loading: false,
+  });
+};
+
+const fetchBookedAppointmentsDateAndTimeFail = (state) => {
+  return updateObject(state, {
+    loading: false,
+  });
+};
+
 const appointmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.OPEN_MODAL:
@@ -142,6 +160,12 @@ const appointmentReducer = (state = initialState, action) => {
       return deleteAppointmentByIdSuccess(state, action);
     case actionTypes.DELETE_APPOINTMENT_BY_ID_FAIL:
       return deleteAppointmentByIdFail(state);
+    case actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_START:
+      return fetchBookedAppointmentsDateAndTimeStart(state);
+    case actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_SUCCESS:
+      return fetchBookedAppointmentsDateAndTimeSuccess(state, action);
+    case actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_FAIL:
+      return fetchBookedAppointmentsDateAndTimeFail(state);
     default:
       return state;
   }

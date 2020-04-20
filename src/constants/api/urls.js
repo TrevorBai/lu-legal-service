@@ -1,4 +1,4 @@
-export const BACKEND_URL_DEV = ''; // 'http://localhost:5000/'
+export const BACKEND_URL_DEV = 'http://localhost:5000/'; // 'http://localhost:5000/'
 export const BACKEND_URL_PROD = 'https://lu-legal-services-server.herokuapp.com/';
 
 const API_URL = (BACKEND_URL_DEV || BACKEND_URL_PROD) + 'api/';
@@ -22,6 +22,6 @@ export const PASSWORD_RESET = API_URL + 'users/passwordReset';
  */
 export const BOOK_APPOINTMENT = API_URL + 'appointments';
 export const FETCH_APPOINTMENT = API_URL + 'appointments';
-export const FETCH_APPOINTMENTS_ADMIN = API_URL + 'appointmentsAdmin';
 export const UPDATE_APPOINTMENT = API_URL + 'appointments';
 export const DELETE_APPOINTMENT = API_URL + 'appointments';
+export const FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME = API_URL + 'appointments/aggregation';

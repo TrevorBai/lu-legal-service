@@ -33,20 +33,20 @@ export const bookAppointment = (formData) => {
   };
 };
 
-export const bookAppointmentStart = () => {
+const bookAppointmentStart = () => {
   return {
     type: actionTypes.BOOK_APPOINTMENT_START,
   };
 };
 
-export const bookAppointmentSuccess = (formData) => {
+const bookAppointmentSuccess = (formData) => {
   return {
     type: actionTypes.BOOK_APPOINTMENT_SUCCESS,
     formData,
   };
 };
 
-export const bookAppointmentFail = (error) => {
+const bookAppointmentFail = (error) => {
   return {
     type: actionTypes.BOOK_APPOINTMENT_FAIL,
     error,
@@ -71,20 +71,20 @@ export const fetchAppointments = () => {
   };
 };
 
-export const fetchAppointmentsStart = () => {
+const fetchAppointmentsStart = () => {
   return {
     type: actionTypes.FETCH_APPOINTMENTS_START,
   };
 };
 
-export const fetchAppointmentsSuccess = (appointmentArray) => {
+const fetchAppointmentsSuccess = (appointmentArray) => {
   return {
     type: actionTypes.FETCH_APPOINTMENTS_SUCCESS,
     appointmentArray,
   };
 };
 
-export const fetchAppointmentsFail = (error) => {
+const fetchAppointmentsFail = (error) => {
   return {
     type: actionTypes.FETCH_APPOINTMENTS_FAIL,
     error,
@@ -112,20 +112,20 @@ export const fetchAppointmentById = (appointmentId) => {
   };
 };
 
-export const fetchAppointmentByIdStart = () => {
+const fetchAppointmentByIdStart = () => {
   return {
     type: actionTypes.FETCH_APPOINTMENT_BY_ID_START,
   };
 };
 
-export const fetchAppointmentByIdSuccess = (appointment) => {
+const fetchAppointmentByIdSuccess = (appointment) => {
   return {
     type: actionTypes.FETCH_APPOINTMENT_BY_ID_SUCCESS,
     appointment,
   };
 };
 
-export const fetchAppointmentByIdFail = (error) => {
+const fetchAppointmentByIdFail = (error) => {
   return {
     type: actionTypes.FETCH_APPOINTMENT_BY_ID_FAIL,
     error,
@@ -154,20 +154,20 @@ export const updateAppointmentById = (appointmentId, formData) => {
   };
 };
 
-export const updateAppointmentByIdStart = () => {
+const updateAppointmentByIdStart = () => {
   return {
     type: actionTypes.UPDATE_APPOINTMENT_BY_ID_START,
   };
 };
 
-export const updateAppointmentByIdSuccess = (updatedAppointment) => {
+const updateAppointmentByIdSuccess = (updatedAppointment) => {
   return {
     type: actionTypes.UPDATE_APPOINTMENT_BY_ID_SUCCESS,
     updatedAppointment,
   };
 };
 
-export const updateAppointmentByIdFail = (error) => {
+const updateAppointmentByIdFail = (error) => {
   return {
     type: actionTypes.UPDATE_APPOINTMENT_BY_ID_FAIL,
     error,
@@ -195,22 +195,57 @@ export const deleteAppointmentById = (appointmentId) => {
   };
 };
 
-export const deleteAppointmentByIdStart = () => {
+const deleteAppointmentByIdStart = () => {
   return {
     type: actionTypes.DELETE_APPOINTMENT_BY_ID_START,
   };
 };
 
-export const deleteAppointmentByIdSuccess = (appointment) => {
+const deleteAppointmentByIdSuccess = (appointment) => {
   return {
     type: actionTypes.DELETE_APPOINTMENT_BY_ID_SUCCESS,
     appointment,
   };
 };
 
-export const deleteAppointmentByIdFail = (error) => {
+const deleteAppointmentByIdFail = (error) => {
   return {
     type: actionTypes.DELETE_APPOINTMENT_BY_ID_FAIL,
     error,
+  };
+};
+
+/***********************************************************
+ ********* Fetch booked appointments date and time *********
+ **********************************************************/
+export const fetchBookedAppointmentsDateAndTime = () => {
+  return async dispatch => {
+    dispatch(fetchBookedAppointmentsDateAndTimeStart());
+    try {
+      const response = await axios.get(path.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME);
+      dispatch(fetchBookedAppointmentsDateAndTimeSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchBookedAppointmentsDateAndTimeFail(error));
+    }
+  };
+};
+
+const fetchBookedAppointmentsDateAndTimeStart = () => {
+  return {
+    type: actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_START
+  };
+};
+
+const fetchBookedAppointmentsDateAndTimeSuccess = (bookedAppointmentDateAndTimeArray) => {
+  return {
+    type: actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_SUCCESS,
+    bookedAppointmentDateAndTimeArray
+  };
+};
+
+const fetchBookedAppointmentsDateAndTimeFail = (error) => {
+  return {
+    type: actionTypes.FETCH_BOOKED_APPOINTMENTS_DATE_AND_TIME_FAIL,
+    error
   };
 };

@@ -6,6 +6,7 @@ export {
   fetchAppointmentById,
   updateAppointmentById,
   deleteAppointmentById,
+  fetchBookedAppointmentsDateAndTime
 } from './appointment';
 export {
   registerUser,

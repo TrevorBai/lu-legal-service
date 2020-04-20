@@ -4,6 +4,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 import './ContactData.css';
 import Input from '../UI/Input/Input';
 import DatePicker from 'react-datepicker';
+import { addDays } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
@@ -115,7 +116,7 @@ const ContactData = () => {
     value: '',
   });
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
 
   const [message, setMessage] = useState({
     elementType: 'textarea',
@@ -132,6 +133,9 @@ const ContactData = () => {
   const booking = useSelector((state) => state.appointment.booking);
   const booked = useSelector((state) => state.appointment.booked);
   const user = useSelector((state) => state.user.user);
+  const bookedAppointmentDateAndTime = useSelector(
+    (state) => state.appointment.bookedAppointmentDateAndTime
+  );
 
   const dispatch = useDispatch();
   const onBookAppointment = (formData) =>
@@ -140,23 +144,128 @@ const ContactData = () => {
   const onCloseModal = () => dispatch(actions.closeModal());
 
   useEffect(() => {
+    const originalAppointmentTimeOptionsArray = [
+      {
+        value: '',
+        displayValue: 'Please select a specific time',
+      },
+      {
+        value: '9:00 AM',
+        displayValue: '9:00 AM',
+      },
+      {
+        value: '9:30 AM',
+        displayValue: '9:30 AM',
+      },
+      {
+        value: '10:00 AM',
+        displayValue: '10:00 AM',
+      },
+      {
+        value: '10:30 AM',
+        displayValue: '10:30 AM',
+      },
+      {
+        value: '11:00 AM',
+        displayValue: '11:00 AM',
+      },
+      {
+        value: '11:30 AM',
+        displayValue: '11:30 AM',
+      },
+      {
+        value: '1:00 PM',
+        displayValue: '1:00 PM',
+      },
+      {
+        value: '1:30 PM',
+        displayValue: '1:30 PM',
+      },
+      {
+        value: '2:00 PM',
+        displayValue: '2:00 PM',
+      },
+      {
+        value: '2:30 PM',
+        displayValue: '2:30 PM',
+      },
+      {
+        value: '3:00 PM',
+        displayValue: '3:00 PM',
+      },
+      {
+        value: '3:30 PM',
+        displayValue: '3:30 PM',
+      },
+      {
+        value: '4:00 PM',
+        displayValue: '4:00 PM',
+      },
+      {
+        value: '4:30 PM',
+        displayValue: '4:30 PM',
+      },
+      {
+        value: '5:00 PM',
+        displayValue: '5:00 PM',
+      },
+    ];
+
+    if (date) {
+      const timeOccupied = bookedAppointmentDateAndTime.find(
+        (dateAndTime) => dateAndTime._id === date.toISOString().slice(0, 10)
+      );
+
+      let filteredAppointmentTimeOptionsArray = originalAppointmentTimeOptionsArray;
+      if (timeOccupied) {
+        const timeOccupiedArrayForSpecificDate = timeOccupied.appointmentTime;
+
+        for (let time of timeOccupiedArrayForSpecificDate) {
+          filteredAppointmentTimeOptionsArray = filteredAppointmentTimeOptionsArray.filter(
+            (timeSlot) => timeSlot.value !== time
+          );
+        }
+      }
+      const updatedFormElement = updateObject(
+        {
+          elementType: 'select',
+          elementConfig: {
+            options: originalAppointmentTimeOptionsArray,
+          },
+          value: '',
+        },
+        {
+          elementConfig: {
+            options: filteredAppointmentTimeOptionsArray,
+          },
+        }
+      );
+      // Update time select options when selecting a date
+      setAppointmentTime(updatedFormElement);
+    }
+  }, [date, bookedAppointmentDateAndTime]);
+
+  useEffect(() => {
     const onFetchUser = () => dispatch(actions.fetchUser());
+    const onFetchBookedAppointmentsDateAndTime = () =>
+      dispatch(actions.fetchBookedAppointmentsDateAndTime());
     onFetchUser();
+    onFetchBookedAppointmentsDateAndTime();
   }, [dispatch]);
 
   useEffect(() => {
     const updateBookableHandler = () => {
-      if (task.value && appointmentTime.value) {
+      if (task.value && appointmentTime.value && date) {
         setBookable(true);
       } else {
         setBookable(false);
       }
     };
     updateBookableHandler();
-  }, [task.value, appointmentTime.value]);
+  }, [task.value, appointmentTime.value, date]);
 
   const compoundDateFormat =
-    date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
+    date && date.toString().slice(4, 15) + ' ' + date.toString().slice(-23);
 
   const appointmentHandler = (event) => {
     event.preventDefault();
@@ -214,6 +323,19 @@ const ContactData = () => {
         changed={(event) => onChangeTaskHandler(event, task)}
         required
       />
+      <div className="row">
+        <div className="col-sm-4">
+          <label>Meeting date</label>
+        </div>
+        <div className="col-sm-8">
+          <DatePicker
+            selected={date}
+            onChange={onChangeDateHandler}
+            minDate={addDays(new Date(), 1)}
+            placeholderText="Click to select a date"
+          />
+        </div>
+      </div>
       <Input
         elementType={appointmentTime.elementType}
         label="Meeting time"
@@ -224,14 +346,6 @@ const ContactData = () => {
         }
         required
       />
-      <div className="row">
-        <div className="col-sm-4">
-          <label>Meeting date</label>
-        </div>
-        <div className="col-sm-8">
-          <DatePicker selected={date} onChange={onChangeDateHandler} />
-        </div>
-      </div>
       <Input
         elementType={message.elementType}
         label="Any comments"
