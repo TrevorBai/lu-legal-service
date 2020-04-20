@@ -1,4 +1,4 @@
-export const BACKEND_URL_DEV = 'http://localhost:5000/'; // 'http://localhost:5000/'
+export const BACKEND_URL_DEV = ''; // 'http://localhost:5000/'
 export const BACKEND_URL_PROD = 'https://lu-legal-services-server.herokuapp.com/';
 
 const API_URL = (BACKEND_URL_DEV || BACKEND_URL_PROD) + 'api/';
