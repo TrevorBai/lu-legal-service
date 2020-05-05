@@ -8,7 +8,7 @@ const Businesses = () => {
       <h2>Here is what we can help you</h2>
       <p>
         Our businesses involve traffic tickets, landlord and tenent, small
-        claims court and commission oaths.
+        claims court and mediation and tribunals. Hire a member of our team to start working on your court matters,  it will save you in the long run!
       </p>
       <div className="row">
         <Business

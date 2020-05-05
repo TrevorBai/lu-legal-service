@@ -12,4 +12,3 @@ The back end repo is saparated from this one, which is located at [lu-legal-serv
 4. Used Redux store to manage states.
 
 Production website is at [Lu Legal Services](https://lu-legal-services.herokuapp.com).
-
