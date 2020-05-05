@@ -1,42 +1,44 @@
-import React from 'react'
-import './Businesses.css'
-import Business from './Business/Business'
+import React from 'react';
+import './Businesses.css';
+import Business from './Business/Business';
 
-const Businesses = props => {
+const Businesses = () => {
   return (
     <section className="Businesses">
       <h2>Here is what we can help you</h2>
-      <p>Our businesses involve traffic tickets, landlord and tenent, small claims court and commission oaths.</p>
+      <p>
+        Our businesses involve traffic tickets, landlord and tenent, small
+        claims court and commission oaths.
+      </p>
       <div className="row">
         <Business
           icon="car"
           title="traffic tickets"
-          description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo."
+          description={`Speeding ticket, stunt driving ticket, careless driving ticket, unsafe lane change, 
+          fail to yield from private drive, follow too closely, careless driving and other highway traffic matters along with charges that could lead to high fines and possibly jail time without being represented.`}
         />
-        <div className="col-sm-2">
-        </div>
+        <div className="col-sm-2"></div>
         <Business
           icon="home"
           title="landlord and tenant"
-          description="Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Quisque rutrum. Aenean imperdiet."
+          description="Eviction, unpaid rent, property damage, tenant not leaving, landlord withhold a deposit. We represent either a landlord or a tenant in matters before the board with professionalism and skill."
         />
       </div>
       <div className="row">
         <Business
           icon="cash"
           title="small claims"
-          description="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. quam un skeptic Cambridge amico dit me que Occidental es.Li Europan lingues es membres del sam familie."
+          description="Unpaid debts, civil litigation matters up to $35,000.00, wrongful dismissal and dismissal based upon Human Rights violations, contract disputes and resolution (promissory notes), personal injury including accident benefits, WSIB, being hurt due to negligence, slip and fall. We welcome the opportunity to discuss your case, to prepare your documents and even represent your matter in the courts."
         />
-        <div className="col-sm-2">
-        </div>
+        <div className="col-sm-2"></div>
         <Business
           icon="create"
-          title="commission oaths"
-          description="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere."
+          title="mediation and tribunals"
+          description="Pet dispute, cancelled wedding, broken contract and disciplinary hearing. We can represent you, help mediate the issue and come to an acceptable resolution for both sides."
         />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Businesses
+export default Businesses;

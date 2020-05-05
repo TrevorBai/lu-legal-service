@@ -26,6 +26,10 @@
   animation-fill-mode: backwards;
 }
 
+.TeamMemberStrength {
+  margin: 1rem auto !important;
+}
+
 @keyframes rostermove {
   0% {
     opacity: 0;

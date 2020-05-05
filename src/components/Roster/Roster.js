@@ -1,28 +1,50 @@
-import React from 'react'
-import './Roster.css'
-import Staff from './Staff/Staff'
+import React from 'react';
+import './Roster.css';
+import Staff from './Staff/Staff';
 
-const Roster = props => {
+const Roster = () => {
+  const luZhangMemoir = [
+    '•	Licensed Paralegal',
+    '•	Experience in Highway Traffic',
+    '•	Paralegal Diploma in Ontario',
+    '•	Bachelor of Law in China',
+    '•	In depth knowledge of legal terminology and principles',
+    '•	Ability to analyze legal documents for accuracy',
+    '•	Time management, produce a high quality and quantity of work product',
+    '•	Strong work ethic, excellent attention to detail, highly organized and proactive',
+    '•	Fluent in English and Mandarin',
+  ];
+
+  const vivianLeeMemoir = [
+    '•	Jr. Licensed Paralegal',
+    '•	Experience in Small Claims court',
+    '•	an eager and bold litigant that will give you the personal service you are looking for in a representative',
+    '•	passionate about volunteering and community involvement',
+    '•	Fluent in English and Mandarin',
+  ];
+
+  const oliviaAllenMemoir = [
+    '•	Licensed Paralegal',
+    '•	Empathetic and solution-seeking, constantly striving to find the best resolutions for clients',
+    '•	Mainly focused on Small Claims, Landlord and Tenant Issues, and Highway Traffic Act matters',
+    '•	Capable of assisting a client from the outset of their matter until conclusion, including document preparation and courtroom advocacy',
+    '•	Knowledgeable, professional, dedicated and dependable'
+  ];
+
   return (
     <section className="Roster">
       <h2>Our strength is our team</h2>
-      <p>diam, aliquam ornare turpis dapibus eget. Etiam at malesuada metus. Proin interdum sapien nec ipsum scelerisque tempor. Aliquam erat volutpat.</p>
+      <p>
+        All our paralegals are fully licensed and authorized by the Law Society
+        of Upper Canada to commission documents.
+      </p>
       <div className="row">
-        <Staff 
-          name="Michael Jordan"
-          memoir="Etiam mauris risus, vulputate id volutpat a, ultricies non lacus. Nam ac mi eget libero fermentum eleifend ut eget eros. Praesent dui dolor, porta vitae mauris eu, consectetur euismod enim. Etiam vitae diam id sem tincidunt dignissim. Pellentesque sagittis eros leo. Donec vehicula fermentum ligula. Phasellus at urna eget eros accumsan porta id sit amet ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae."
-        />
-        <Staff 
-          name="Kobe Briant"
-          memoir="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum hendrerit libero vitae consectetur. Praesent non mauris odio. Pellentesque eget viverra enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras sollicitudin eros ut justo gravida. Maecenas a tellus sit amet justo pellentesque mattis eu sit amet odio. In sed velit eu dui porta dapibus nec vel quam."
-        />
-        <Staff 
-          name="Tim Duncan"
-          memoir="Nullam rutrum velit erat, convallis pharetra urna feugiat posuere. Curabitur in feugiat arcu. Morbi blandit sem sit amet faucibus auctor. Vestibulum pharetra ligula dapibus, molestie mi eget, scelerisque orci. Integer ac lectus laoreet, vehicula ipsum id, sodales tortor. In finibus maximus sapien a porttitor. Quisque porttitor, enim vestibulum iaculis viverra, risus elit ultricies nibh, a lacinia arcu est sed dolor. Donec ac eros maximus, aliquam orci sed, cursus turpis."
-        />
+        <Staff name="Lu Zhang" memoir={luZhangMemoir} />
+        <Staff name="Olivia Allen" memoir={oliviaAllenMemoir} />
+        <Staff name="Vivian Lee" memoir={vivianLeeMemoir} />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Roster
+export default Roster;

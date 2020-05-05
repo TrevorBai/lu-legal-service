@@ -1,15 +1,20 @@
-import React from 'react'
-import './Staff.css'
+import React from 'react';
+import './Staff.css';
 
-const Staff = props => {
+const Staff = ({ name, memoir }) => {
+  const memoirArr = Array.from(memoir);
   return (
     <div className="col-sm-4">
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.memoir}</p>
+        <h3>{name}</h3>
+        {memoirArr.map((cur) => (
+          <p key={cur} className="TeamMemberStrength">
+            {cur}
+          </p>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Staff
+export default Staff;

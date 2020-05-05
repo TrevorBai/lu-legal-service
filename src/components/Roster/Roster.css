@@ -2,6 +2,7 @@
   padding: 4rem 0 4rem;
   text-align: center;
   background-color: #f4f4f4;
+  overflow: hidden;
 }
 
 .Roster .row {
